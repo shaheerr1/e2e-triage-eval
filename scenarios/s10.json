@@ -1,0 +1,7 @@
+{
+  "id": "s10",
+  "target": "Product info › Add to Cart updates the header basket badge",
+  "summary": "Badge count is asserted on the Add to Cart button instead of the header badge.",
+  "fix": "tests-pw/e2e/src/tests/novera/product-info.spec.ts: assert toHaveText(\"2\") on productPage.addedConfirmation.",
+  "patch": "patches/1d72dd7354.diff"
+}

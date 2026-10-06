@@ -1,0 +1,7 @@
+{
+  "id": "s18",
+  "target": "Product extras › the size chart switches between inches and centimetres",
+  "summary": "Size chart test reads the L row while asserting the M row's values.",
+  "fix": "tests-pw/e2e/src/tests/novera/product-extras.spec.ts: match the row with /^M\\b/.",
+  "patch": "patches/363bff7dab.diff"
+}

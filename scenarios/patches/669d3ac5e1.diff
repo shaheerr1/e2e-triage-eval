@@ -1,0 +1,11 @@
+--- a/src/components/ProductInfo.tsx
++++ b/src/components/ProductInfo.tsx
+@@ -98,7 +98,7 @@
+             className={`product-info__stock${inStock ? "" : " product-info__stock--out"}`}
+             aria-live="polite"
+           >
+-            {inStock ? `${stock} In Stock` : "Out of Stock"}
++            {inStock ? `${stock - 1} In Stock` : "Out of Stock"}
+           </p>
+         </li>
+       </ul>

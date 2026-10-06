@@ -1,0 +1,15 @@
+--- a/src/components/DeliveryInfo.tsx
++++ b/src/components/DeliveryInfo.tsx
+@@ -13,11 +13,10 @@
+ // hydration, so the two match, then immediately re-renders with the browser's
+ // date. The date string is a stable snapshot for the whole day.
+ const subscribe = () => () => {};
+-const getBrowserToday = () => new Date().toDateString();
+ const getServerToday = () => null;
+ 
+ export default function DeliveryInfo() {
+-  const today = useSyncExternalStore(subscribe, getBrowserToday, getServerToday);
++  const today = useSyncExternalStore(subscribe, getServerToday, getServerToday);
+   const range = today ? formatDeliveryRange(getDeliveryRange(new Date(today))) : null;
+ 
+   return (

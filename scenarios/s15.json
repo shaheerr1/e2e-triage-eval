@@ -1,0 +1,15 @@
+{
+  "id": "s15",
+  "target": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+  "summary": "Web fonts are slow on the first page load only; load event late, retry passes.",
+  "fix": "Nothing in code; investigate intermittent asset latency.",
+  "shard": {
+    "proxyRules": [
+      {
+        "firstPageLoadOnly": true,
+        "delayMs": 40000,
+        "path": "\\.woff2$"
+      }
+    ]
+  }
+}

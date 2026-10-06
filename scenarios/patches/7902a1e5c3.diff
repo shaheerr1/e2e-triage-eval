@@ -1,0 +1,11 @@
+--- a/src/lib/units.ts
++++ b/src/lib/units.ts
+@@ -6,7 +6,7 @@
+  * floating point error of `x * 2.54` that can tip a .x5 value the wrong way.
+  */
+ export function inchesToCm(inches: number): number {
+-  return Math.round((inches * 254) / 10) / 10;
++  return Math.round((inches * 245) / 10) / 10;
+ }
+ 
+ /** A measurement stored in inches, in the requested unit. */

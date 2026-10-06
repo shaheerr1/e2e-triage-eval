@@ -1,0 +1,14 @@
+--- a/tests-pw/e2e/src/tests/novera/product-info.spec.ts
++++ b/tests-pw/e2e/src/tests/novera/product-info.spec.ts
+@@ -26,8 +26,9 @@
+   test("sizes that are out of stock for the colour are disabled", async ({ productPage, page }) => {
+     await productPage.variantButton("colour-mustard").click();
+ 
+-    await expect(page.getByRole("radio", { name: "S (out of stock)" })).toBeDisabled();
+-    await expect(page.getByRole("radio", { name: "XL (out of stock)" })).toBeDisabled();
++    const soldOut = page.getByRole("radio", { name: /\(out of stock\)$/ });
++    await expect(soldOut).toHaveCount(3);
++    for (const size of await soldOut.all()) await expect(size).toBeDisabled();
+     await expect(page.getByRole("radio", { name: "M", exact: true })).toBeEnabled();
+     await expect(page.getByRole("radio", { name: "L", exact: true })).toBeEnabled();
+   });

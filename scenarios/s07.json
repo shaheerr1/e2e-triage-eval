@@ -1,0 +1,7 @@
+{
+  "id": "s07",
+  "target": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+  "summary": "Clock is set with month index 10 (November) while the test expects October dates.",
+  "fix": "tests-pw/e2e/src/tests/novera/delivery.spec.ts: new Date(2026, 9, 5, 10).",
+  "patch": "patches/42559a1a88.diff"
+}

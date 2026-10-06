@@ -1,0 +1,7 @@
+{
+  "id": "s27",
+  "target": "Product extras › the size chart switches between inches and centimetres",
+  "summary": "Inch to cm conversion uses 2.45 instead of 2.54.",
+  "fix": "src/lib/units.ts: multiply by 254, not 245.",
+  "patch": "patches/7902a1e5c3.diff"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "s20",
+  "target": "Smoke: site health › route responds: home (/)",
+  "summary": "Suite pointed at the wrong port, where another server answers 404.",
+  "fix": "Fix BLAZE_TEST_PLAYWRIGHT_BASE_URL to the app's port (3100).",
+  "shard": {
+    "baseUrl": "http://localhost:3110",
+    "stranger": 3110
+  }
+}

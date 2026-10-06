@@ -1,0 +1,7 @@
+{
+  "id": "s01",
+  "target": "Product info › quantity cannot go above the stock of the selected variant",
+  "summary": "Quantity test uses a stale class selector (.quantity-stepper__field) that matches nothing.",
+  "fix": "tests-pw/e2e/src/tests/novera/product-info.spec.ts: use productPage.quantityInput (#quantity).",
+  "patch": "patches/4cbb5a247a.diff"
+}

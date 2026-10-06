@@ -1,0 +1,15 @@
+{
+  "id": "s03",
+  "target": "Product info › Add to Cart updates the header basket badge",
+  "summary": "Scripts are slow on the first page load only; navigation times out, retry passes.",
+  "fix": "Nothing in code; investigate intermittent asset latency.",
+  "shard": {
+    "proxyRules": [
+      {
+        "firstPageLoadOnly": true,
+        "delayMs": 35000,
+        "path": "^/_next/static/chunks/.*\\.js"
+      }
+    ]
+  }
+}

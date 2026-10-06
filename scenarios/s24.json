@@ -1,0 +1,7 @@
+{
+  "id": "s24",
+  "target": "Product info › selecting a colour updates the stock for the selected size",
+  "summary": "Stock label shows one unit fewer than the stock matrix holds.",
+  "fix": "src/components/ProductInfo.tsx: render `${stock} In Stock`, not stock - 1.",
+  "patch": "patches/669d3ac5e1.diff"
+}

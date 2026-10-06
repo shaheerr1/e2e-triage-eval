@@ -1,0 +1,15 @@
+{
+  "id": "s14",
+  "target": "Product extras › opening an accordion item reveals its content",
+  "summary": "Scripts are slow on the first page load only; navigation times out, retry passes.",
+  "fix": "Nothing in code; investigate intermittent asset latency.",
+  "shard": {
+    "proxyRules": [
+      {
+        "firstPageLoadOnly": true,
+        "delayMs": 45000,
+        "path": "^/_next/static/chunks/.*\\.js"
+      }
+    ]
+  }
+}

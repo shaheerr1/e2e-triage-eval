@@ -1,0 +1,7 @@
+{
+  "id": "s05",
+  "target": "Product info › sizes that are out of stock for the colour are disabled",
+  "summary": "Sizes with no stock for the colour stay selectable.",
+  "fix": "src/components/VariantPicker.tsx: restore disabled={!available} on the size input.",
+  "patch": "patches/40e0d077a2.diff"
+}

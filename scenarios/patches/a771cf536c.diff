@@ -1,0 +1,13 @@
+--- a/tests-pw/e2e/src/tests/novera/product-info.spec.ts
++++ b/tests-pw/e2e/src/tests/novera/product-info.spec.ts
+@@ -18,8 +18,8 @@
+     await expect(page.getByText("12 In Stock")).toBeVisible();
+ 
+     // Mustard has no S, so the size moves to M (5 in stock)
+-    await productPage.variantButton("colour-mustard").click();
+-    await expect(productPage.variantButton("colour-mustard")).toBeChecked();
++    await productPage.variantButton("colour-yellow").click();
++    await expect(productPage.variantButton("colour-yellow")).toBeChecked();
+     await expect(page.getByText("5 In Stock")).toBeVisible();
+   });
+ 

@@ -1,0 +1,7 @@
+{
+  "id": "s30",
+  "target": "Product info › shows the product name and price",
+  "summary": "Price test expects £24.90; the product's price is £24.99.",
+  "fix": "tests-pw/e2e/src/tests/novera/product-info.spec.ts: expect £24.99.",
+  "patch": "patches/649b302827.diff"
+}

@@ -1,0 +1,11 @@
+--- a/tests-pw/e2e/src/tests/novera/product-extras.spec.ts
++++ b/tests-pw/e2e/src/tests/novera/product-extras.spec.ts
+@@ -9,7 +9,7 @@
+     const heading = page.getByRole("heading", { name: /^Size chart/ });
+     const inch = page.getByRole("button", { name: "INCH" });
+     const cm = page.getByRole("button", { name: "CM" });
+-    const rowM = page.getByRole("row", { name: /^M\b/ });
++    const rowM = page.getByRole("row", { name: /^L\b/ });
+ 
+     await expect(heading).toContainText("In inches");
+     await expect(inch).toHaveAttribute("aria-pressed", "true");

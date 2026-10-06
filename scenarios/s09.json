@@ -1,0 +1,14 @@
+{
+  "id": "s09",
+  "target": "Product info › quantity cannot go above the stock of the selected variant",
+  "summary": "Server answers every request with 503.",
+  "fix": "Check the app server's health and logs; rerun once it is up.",
+  "shard": {
+    "proxyRules": [
+      {
+        "status": 503,
+        "body": "<h1>Service Unavailable</h1><p>The server is temporarily unable to service your request.</p>"
+      }
+    ]
+  }
+}

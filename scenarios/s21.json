@@ -1,0 +1,14 @@
+{
+  "id": "s21",
+  "target": "Product extras › the size chart switches between inches and centimetres",
+  "summary": "Every document response takes 60s, beyond the navigation timeout.",
+  "fix": "Investigate server response time; the suite's timeouts are not the problem.",
+  "shard": {
+    "proxyRules": [
+      {
+        "dest": "document",
+        "delayMs": 60000
+      }
+    ]
+  }
+}

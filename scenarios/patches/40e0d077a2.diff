@@ -1,0 +1,10 @@
+--- a/src/components/VariantPicker.tsx
++++ b/src/components/VariantPicker.tsx
+@@ -70,7 +70,6 @@
+                   name="size"
+                   value={option}
+                   checked={option === size}
+-                  disabled={!available}
+                   onChange={() => onSizeChange(option)}
+                 />
+                 <label htmlFor={id} className="variant-picker__size">

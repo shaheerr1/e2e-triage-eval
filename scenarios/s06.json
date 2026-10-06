@@ -1,0 +1,7 @@
+{
+  "id": "s06",
+  "target": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+  "summary": "Delivery range always uses the server snapshot, so it never appears.",
+  "fix": "src/components/DeliveryInfo.tsx: pass getBrowserToday as the client snapshot.",
+  "patch": "patches/8e60d767aa.diff"
+}

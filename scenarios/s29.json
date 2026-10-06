@@ -1,0 +1,7 @@
+{
+  "id": "s29",
+  "target": "Product info › selecting a colour updates the stock for the selected size",
+  "summary": "Test selects variant id colour-yellow, which does not exist (the colour is mustard).",
+  "fix": "tests-pw/e2e/src/tests/novera/product-info.spec.ts: use colour-mustard.",
+  "patch": "patches/a771cf536c.diff"
+}

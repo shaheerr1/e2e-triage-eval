@@ -1,0 +1,7 @@
+{
+  "id": "s23",
+  "target": "Product info › Add to Cart updates the header basket badge",
+  "summary": "Basket total is memoised without depending on the items, so the header badge never updates.",
+  "fix": "src/context/CartContext.tsx: add items to the useMemo dependency list.",
+  "patch": "patches/a51fb724d0.diff"
+}

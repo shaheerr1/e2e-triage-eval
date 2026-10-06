@@ -1,0 +1,130 @@
+{
+  "s01": {
+    "category": "test_bug",
+    "evidence_sufficient": true
+  },
+  "s02": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  },
+  "s03": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  },
+  "s04": {
+    "category": "environment",
+    "evidence_sufficient": true
+  },
+  "s05": {
+    "category": "product_bug",
+    "evidence_sufficient": true
+  },
+  "s06": {
+    "category": "product_bug",
+    "evidence_sufficient": true
+  },
+  "s07": {
+    "category": "test_bug",
+    "evidence_sufficient": true
+  },
+  "s08": {
+    "category": "test_bug",
+    "evidence_sufficient": false
+  },
+  "s09": {
+    "category": "environment",
+    "evidence_sufficient": true
+  },
+  "s10": {
+    "category": "test_bug",
+    "evidence_sufficient": true
+  },
+  "s11": {
+    "category": "product_bug",
+    "evidence_sufficient": false
+  },
+  "s12": {
+    "category": "product_bug",
+    "evidence_sufficient": true
+  },
+  "s13": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  },
+  "s14": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  },
+  "s15": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  },
+  "s16": {
+    "category": "environment",
+    "evidence_sufficient": false
+  },
+  "s17": {
+    "category": "test_bug",
+    "evidence_sufficient": true
+  },
+  "s18": {
+    "category": "test_bug",
+    "evidence_sufficient": true
+  },
+  "s19": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  },
+  "s20": {
+    "category": "environment",
+    "evidence_sufficient": false
+  },
+  "s21": {
+    "category": "environment",
+    "evidence_sufficient": false
+  },
+  "s22": {
+    "category": "environment",
+    "evidence_sufficient": true
+  },
+  "s23": {
+    "category": "product_bug",
+    "evidence_sufficient": true
+  },
+  "s24": {
+    "category": "product_bug",
+    "evidence_sufficient": false
+  },
+  "s25": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  },
+  "s26": {
+    "category": "environment",
+    "evidence_sufficient": true
+  },
+  "s27": {
+    "category": "product_bug",
+    "evidence_sufficient": true
+  },
+  "s28": {
+    "category": "product_bug",
+    "evidence_sufficient": true
+  },
+  "s29": {
+    "category": "test_bug",
+    "evidence_sufficient": true
+  },
+  "s30": {
+    "category": "test_bug",
+    "evidence_sufficient": false
+  },
+  "s31": {
+    "category": "environment",
+    "evidence_sufficient": true
+  },
+  "s32": {
+    "category": "flaky",
+    "evidence_sufficient": true
+  }
+}

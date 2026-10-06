@@ -1,0 +1,11 @@
+--- a/tests-pw/e2e/src/tests/novera/product-info.spec.ts
++++ b/tests-pw/e2e/src/tests/novera/product-info.spec.ts
+@@ -7,7 +7,7 @@
+ 
+   test("shows the product name and price", async ({ productPage, page }) => {
+     await expect(productPage.title).toBeVisible();
+-    await expect(page.getByText("£24.99", { exact: true })).toBeVisible();
++    await expect(page.getByText("£24.90", { exact: true })).toBeVisible();
+   });
+ 
+   test("selecting a colour updates the stock for the selected size", async ({

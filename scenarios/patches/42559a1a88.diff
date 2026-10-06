@@ -1,0 +1,11 @@
+--- a/tests-pw/e2e/src/tests/novera/delivery.spec.ts
++++ b/tests-pw/e2e/src/tests/novera/delivery.spec.ts
+@@ -7,7 +7,7 @@
+     page,
+   }) => {
+     // Monday 5 October 2026: 3 to 5 working days ahead is Thursday 8 to Monday 12.
+-    await page.clock.setFixedTime(new Date(2026, 9, 5, 10));
++    await page.clock.setFixedTime(new Date(2026, 10, 5, 10));
+     await productPage.gotoProduct(profile.data.products[0].path);
+ 
+     await expect(page.getByText("Oct 08-12", { exact: true })).toBeVisible();

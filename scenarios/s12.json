@@ -1,0 +1,7 @@
+{
+  "id": "s12",
+  "target": "Product info › quantity cannot go above the stock of the selected variant",
+  "summary": "Typed quantity is no longer clamped to the variant's stock.",
+  "fix": "src/components/QuantityStepper.tsx: clamp with Math.min(..., upper) in commit().",
+  "patch": "patches/bce494b833.diff"
+}

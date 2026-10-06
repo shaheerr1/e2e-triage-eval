@@ -1,0 +1,19 @@
+--- a/tests-pw/e2e/src/tests/novera/product-info.spec.ts
++++ b/tests-pw/e2e/src/tests/novera/product-info.spec.ts
+@@ -36,11 +36,13 @@
+     productPage,
+     page,
+   }) => {
++    const quantity = page.locator(".quantity-stepper__field");
++
+     // Sage S has 12 in stock
+-    await productPage.quantityInput.fill("99");
+-    await productPage.quantityInput.blur();
++    await quantity.fill("99");
++    await quantity.blur();
+ 
+-    await expect(productPage.quantityInput).toHaveValue("12");
++    await expect(quantity).toHaveValue("12");
+     await expect(page.getByRole("button", { name: "Increase quantity" })).toBeDisabled();
+   });
+ 

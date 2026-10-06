@@ -1,0 +1,9 @@
+{
+  "id": "s04",
+  "target": "Product info › shows the product name and price",
+  "summary": "Server not running: nothing listens on the base URL's port.",
+  "fix": "Start the app server (or fix the job's server step) before the suite runs.",
+  "shard": {
+    "proxy": false
+  }
+}

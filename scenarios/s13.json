@@ -1,0 +1,15 @@
+{
+  "id": "s13",
+  "target": "Smoke: site health › home page renders with site chrome",
+  "summary": "Document response is slow on the first page load only; navigation times out, retry passes.",
+  "fix": "Nothing in code; investigate cold-start time to first byte.",
+  "shard": {
+    "proxyRules": [
+      {
+        "firstPageLoadOnly": true,
+        "delayMs": 45000,
+        "dest": "document"
+      }
+    ]
+  }
+}

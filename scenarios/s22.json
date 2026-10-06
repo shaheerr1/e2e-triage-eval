@@ -1,0 +1,9 @@
+{
+  "id": "s22",
+  "target": "Smoke: site health › home page renders with site chrome",
+  "summary": "Suite pointed at a host name that does not resolve.",
+  "fix": "Fix BLAZE_TEST_PLAYWRIGHT_BASE_URL to a resolvable host.",
+  "shard": {
+    "baseUrl": "http://novera-web.internal:3100"
+  }
+}

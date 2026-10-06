@@ -1,0 +1,11 @@
+--- a/src/context/CartContext.tsx
++++ b/src/context/CartContext.tsx
+@@ -40,7 +40,7 @@
+       totalQuantity: items.reduce((sum, line) => sum + line.quantity, 0),
+       addToCart,
+     }),
+-    [items, addToCart],
++    [addToCart],
+   );
+ 
+   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

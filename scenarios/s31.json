@@ -1,0 +1,14 @@
+{
+  "id": "s31",
+  "target": "Product info › selecting a colour updates the stock for the selected size",
+  "summary": "Static assets under /_next/static answer 503, so the page renders without scripts or styles.",
+  "fix": "Check the static asset server/CDN; the build output is fine.",
+  "shard": {
+    "proxyRules": [
+      {
+        "path": "^/_next/static/",
+        "status": 503
+      }
+    ]
+  }
+}

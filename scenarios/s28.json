@@ -1,0 +1,7 @@
+{
+  "id": "s28",
+  "target": "Product extras › opening an accordion item reveals its content",
+  "summary": "Accordion click handler never opens the <details>, so content is never revealed.",
+  "fix": "src/components/AnimatedDetails.tsx: set details.open = true before measuring and animating.",
+  "patch": "patches/aefc56ce16.diff"
+}

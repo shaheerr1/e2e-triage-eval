@@ -1,0 +1,14 @@
+{
+  "id": "s26",
+  "target": "Product info › Add to Cart updates the header basket badge",
+  "summary": "A firewall in front of the app answers 403 to every request.",
+  "fix": "Allow the runner through the firewall (or send the expected client header).",
+  "shard": {
+    "proxyRules": [
+      {
+        "status": 403,
+        "body": "<h1>Access denied</h1><p>Your request was blocked by the security policy.</p>"
+      }
+    ]
+  }
+}

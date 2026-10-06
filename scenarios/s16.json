@@ -1,0 +1,15 @@
+{
+  "id": "s16",
+  "target": "Smoke: site health › route responds: /api/product (/api/product)",
+  "summary": "Gateway answers 502 for the product API route.",
+  "fix": "Check the gateway/upstream for /api/product; the route handler itself is fine.",
+  "shard": {
+    "proxyRules": [
+      {
+        "path": "^/api/product",
+        "status": 502,
+        "body": "<h1>502 Bad Gateway</h1>"
+      }
+    ]
+  }
+}

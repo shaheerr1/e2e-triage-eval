@@ -1,0 +1,7 @@
+{
+  "id": "s11",
+  "target": "Product info › shows the product name and price",
+  "summary": "Price formatter drops the pence (£25 instead of £24.99).",
+  "fix": "src/lib/format.ts: remove maximumFractionDigits: 0 from formatPrice.",
+  "patch": "patches/b1f3bb9a29.diff"
+}

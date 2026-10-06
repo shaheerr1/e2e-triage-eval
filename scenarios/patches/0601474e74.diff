@@ -1,0 +1,11 @@
+--- a/tests-pw/e2e/src/tests/novera/product-extras.spec.ts
++++ b/tests-pw/e2e/src/tests/novera/product-extras.spec.ts
+@@ -30,7 +30,7 @@
+     const body = page.getByText(/^Every order ships free/);
+     await expect(body).toBeHidden();
+ 
+-    await page.getByRole("heading", { name: "Free Shipping Worldwide" }).click();
++    await page.getByRole("heading", { name: "Free Worldwide Shipping" }).click();
+ 
+     await expect(body).toBeVisible();
+   });

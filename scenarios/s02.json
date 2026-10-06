@@ -1,0 +1,15 @@
+{
+  "id": "s02",
+  "target": "Product info › quantity cannot go above the stock of the selected variant",
+  "summary": "Document response is slow on the first page load only; navigation times out, retry passes.",
+  "fix": "Nothing in code; investigate cold-start time to first byte.",
+  "shard": {
+    "proxyRules": [
+      {
+        "firstPageLoadOnly": true,
+        "delayMs": 40000,
+        "dest": "document"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "s08",
+  "target": "Product info › sizes that are out of stock for the colour are disabled",
+  "summary": "Test expects 3 sold-out sizes for Mustard; there are 2 (S and XL).",
+  "fix": "tests-pw/e2e/src/tests/novera/product-info.spec.ts: expect a count of 2.",
+  "patch": "patches/a8c90e9afa.diff"
+}

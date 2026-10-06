@@ -1,0 +1,7 @@
+{
+  "id": "s17",
+  "target": "Product extras › opening an accordion item reveals its content",
+  "summary": "Accordion test uses outdated heading copy (Free Worldwide Shipping).",
+  "fix": "tests-pw/e2e/src/tests/novera/product-extras.spec.ts: use the current heading, Free Shipping Worldwide.",
+  "patch": "patches/0601474e74.diff"
+}

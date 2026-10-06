@@ -1,0 +1,11 @@
+--- a/src/components/QuantityStepper.tsx
++++ b/src/components/QuantityStepper.tsx
+@@ -27,7 +27,7 @@
+   function commit() {
+     if (draft === null) return;
+     const parsed = Number.parseInt(draft, 10);
+-    const next = Number.isNaN(parsed) ? value : Math.min(Math.max(parsed, MIN), upper);
++    const next = Number.isNaN(parsed) ? value : Math.max(parsed, MIN);
+     setDraft(null);
+     onChange(next);
+   }

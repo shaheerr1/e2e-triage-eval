@@ -1,0 +1,15 @@
+{
+  "id": "s19",
+  "target": "Product extras › the size chart switches between inches and centimetres",
+  "summary": "Hero image is slow on the first page load only; load event late, retry passes.",
+  "fix": "Nothing in code; investigate image optimiser cold start.",
+  "shard": {
+    "proxyRules": [
+      {
+        "firstPageLoadOnly": true,
+        "delayMs": 40000,
+        "path": "^/_next/image"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+--- a/src/components/AnimatedDetails.tsx
++++ b/src/components/AnimatedDetails.tsx
+@@ -75,7 +75,6 @@
+       animating && inner ? getComputedStyle(inner).transform : opening ? SHIFT : "none";
+     stopAnimations();
+ 
+-    details.open = true; // content must be rendered to measure and animate it
+     const toHeight = opening ? content.scrollHeight : 0;
+     const options: KeyframeAnimationOptions = {
+       duration: DURATION_MS,
