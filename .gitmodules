@@ -1,0 +1,3 @@
+[submodule "novera"]
+	path = novera
+	url = https://github.com/shaheerr1/novera-product-page.git
