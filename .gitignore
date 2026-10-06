@@ -1,0 +1,4 @@
+node_modules/
+.env.local
+.work/
+.DS_Store
