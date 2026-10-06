@@ -1,0 +1,12 @@
+Would send 19051 characters for 4 failures.
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+> Not triaged: dry run.
+
+| Test | Platforms | Error |
+|---|---|---|
+| Product extras › opening an accordion item reveals its content | Chrome (local) | TimeoutError: locator.click: Timeout 15000ms exceeded. |
+| Product info › selecting a colour updates the stock for the selected size | Chrome (local) | TimeoutError: locator.click: Timeout 15000ms exceeded. |
+| Product extras › the size chart switches between inches and centimetres | Chrome (local) (flaky) | TimeoutError: page.goto: Timeout 30000ms exceeded. |
+| Smoke: site health › home page renders with site chrome | Chrome (local) | Error: page.goto: net::ERR_NAME_NOT_RESOLVED at http://novera-web.internal:3100/ |
+

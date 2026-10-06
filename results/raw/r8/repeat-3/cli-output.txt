@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (8926 input / 1288 output tokens).
+## E2E novera on local browsers: 2 failed, 2 flaky, 7 passed, 19 skipped
+
+**Local Chrome run failed: one likely product bug (quantity not clamped to stock), one WAF 403 block, and two navigation timeouts that passed on retry.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (medium) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | Typing 99 and blurring leaves the quantity at 99 instead of clamping to the 12 in stock for Sage/S; it failed on both attempts. |
+| Environment (high) | Product info › Add to Cart updates the header basket badge | Chrome (local) | The page load was blocked by a security policy (403), so the basket button never rendered. |
+| Flaky (medium) | Smoke: site health › home page renders with site chrome | Chrome (local) | The initial page.goto timed out at 30s and the test passed on retry. |
+| Flaky (medium) | Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | page.goto in beforeEach timed out and the test passed on retry; this is the same load slowness as the smoke test, with no sign of a defect. |
+
+<details><summary>Product bug: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** Expected: "12" Received: "99"; snapshot shows textbox "Quantity": "99" with paragraph "12 In Stock" and button "Increase quantity" [disabled], so the stepper knows the limit but the input is not clamped.
+
+**Next step:** Check the quantity-stepper__input blur/change handler, which should clamp typed values to the selected variant's stock (12 for Sage S). Confirm the intended behaviour with product before changing the test.
+
+</details>
+<details><summary>Environment: Product info › Add to Cart updates the header basket badge</summary>
+
+**Evidence:** lastNavigation status 403; snapshot: heading "Access denied" and "Your request was blocked by the security policy."
+
+**Next step:** Find which WAF or security middleware in front of localhost:3100 returned the 403, likely rate limiting from repeated test requests. Allowlist the test runner or relax the rule for the test environment, then rerun.
+
+</details>
+<details><summary>Flaky: Smoke: site health › home page renders with site chrome</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded. navigating to "http://localhost:3100/", waiting until "load"; outcome flaky, attempts 2
+
+**Next step:** Check whether the local server is slow on first requests (cold start or build). Add a warm-up request or health-check wait before the suite starts.
+
+</details>
+<details><summary>Flaky: Product info › sizes that are out of stock for the colour are disabled</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded at productPage.gotoProduct (line 5); snapshot after retry shows a normal product page with status 200.
+
+**Next step:** Handle this together with the smoke timeout: warm up the server, or wait for 'domcontentloaded' instead of 'load' if a slow third-party resource is delaying the load event.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (9844 input / 1207 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**4 failures on local Chrome: /api/product returns 502, which likely explains the wrong price and stock; the size-chart test asserts on the wrong row.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (high) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The locator is named rowM but uses /^L\b/, so it selects the L row, while the expected 27.5 is M's length. |
+| Environment (high) | Smoke: site health › route responds: /api/product (/api/product) | Chrome (local) | The product API on the local target returns a 502 Bad Gateway. |
+| Environment (medium) | Product info › shows the product name and price | Chrome (local) | The page shows £25 instead of £24.99, probably fallback or stale data because /api/product is returning 502. |
+| Environment (medium) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | Stock for Sage/S shows 11 instead of the expected 12, probably fallback or stale data while /api/product returns 502. |
+
+<details><summary>Test bug: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** Received string: "L40.5288.75"; snapshot row "M 39 27.5 8.5" holds 27.5
+
+**Next step:** Change the locator in product-extras.spec.ts line 12 to getByRole('row', { name: /^M\b/ }) and check that the cm expectation 69.9 matches M.
+
+</details>
+<details><summary>Environment: Smoke: site health › route responds: /api/product (/api/product)</summary>
+
+**Evidence:** Error: /api/product returned 502 … Expected: < 400 Received: 502
+
+**Next step:** Check the localhost:3100 server logs and confirm the upstream /api/product backend is running and reachable, then rerun.
+
+</details>
+<details><summary>Environment: Product info › shows the product name and price</summary>
+
+**Evidence:** getByText('£24.99', { exact: true }) element(s) not found; snapshot shows 'paragraph: £25' under heading 'Twill Overshirt'
+
+**Next step:** Fix the /api/product 502 and rerun. If it still shows £25, treat it as a price-formatting or rounding product bug.
+
+</details>
+<details><summary>Environment: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** getByText('12 In Stock') not found; snapshot shows 'paragraph: 11 In Stock' with radio 'Sage' [checked] and 'S' [checked]
+
+**Next step:** Fix the /api/product 502 and rerun. If it still shows 11, compare the stock fixture in profile data with the CMS value and update whichever is wrong.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

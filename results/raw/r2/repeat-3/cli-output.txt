@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (13686 input / 1670 output tokens).
+## E2E novera on local browsers: 2 failed, 2 flaky, 7 passed, 19 skipped
+
+**Two real failures: a test date bug in the delivery test and an apparent product bug where out-of-stock sizes stay selectable; two goto timeouts on local Chrome passed on retry.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (medium) | Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | After selecting Mustard, the S and XL radios are relabelled '(out of stock)' but are not disabled, so out-of-stock sizes can still be selected. |
+| Test bug (high) | Delivery estimate › the delivery date range is calculated from the visitor's date after load | Chrome (local) | The test pins the clock to 5 November instead of 5 October, because JS months are zero-based, so the page correctly shows a November range. |
+| Flaky (medium) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | The beforeEach navigation to localhost timed out waiting for the 'load' event on the first attempt and passed on retry. |
+| Flaky (medium) | Product info › Add to Cart updates the header basket badge | Chrome (local) | The same beforeEach goto timeout occurred while the page had rendered but the load event had not fired; the test passed on retry. |
+
+<details><summary>Product bug: Product info › sizes that are out of stock for the colour are disabled</summary>
+
+**Evidence:** Error: 'Expected: disabled, Received: enabled'; resolved `<input ... value="S" id="size-s" ...>` has no disabled attribute; snapshot shows `radio "S (out of stock)"` with no [disabled], while other controls like `button "Decrease quantity" [disabled]` do show it.
+
+**Next step:** In the variant picker, set the `disabled` attribute on size inputs whose stock is 0 for the selected colour (the code that appends '(out of stock)' to the label), then re-run this spec.
+
+</details>
+<details><summary>Test bug: Delivery estimate › the delivery date range is calculated from the visitor's date after load</summary>
+
+**Evidence:** Source line 10: `new Date(2026, 10, 5, 10)` (month 10 = November) vs comment 'Monday 5 October 2026'; snapshot shows `definition: Nov 10-12`, which is correct for Thu 5 Nov.
+
+**Next step:** Change line 10 to `new Date(2026, 9, 5, 10)` so the clock is Monday 5 October and the expected 'Oct 08-12' holds.
+
+</details>
+<details><summary>Flaky: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** 'TimeoutError: page.goto: Timeout 30000ms exceeded ... navigating to "http://localhost:3100/", waiting until "load"'; outcome flaky, attempts 2.
+
+**Next step:** Check the local server's timing for a slow or hanging asset that delays the load event (compare against the other goto timeout in this run); if none is found, warm up the server before tests or use waitUntil 'domcontentloaded' in gotoProduct.
+
+</details>
+<details><summary>Flaky: Product info › Add to Cart updates the header basket badge</summary>
+
+**Evidence:** 'TimeoutError: page.goto: Timeout 30000ms exceeded' with lastNavigation status 200 and snapshot still showing `definition: Calculating delivery date`.
+
+**Next step:** Look in the network panel or a trace for a request left pending on the product page (for example, the delivery-date or image request) that blocks 'load'; fix it or relax gotoProduct's waitUntil.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

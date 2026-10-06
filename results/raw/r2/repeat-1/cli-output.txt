@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (13686 input / 1578 output tokens).
+## E2E novera on local browsers: 2 failed, 2 flaky, 7 passed, 19 skipped
+
+**Two real failures: one test bug (wrong month in the fixed clock) and one likely product bug (out-of-stock sizes stay enabled); two localhost page.goto timeouts that passed on retry.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (medium) | Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | With Mustard selected, the S and XL size radios are labelled out of stock but are not disabled. |
+| Test bug (high) | Delivery estimate › the delivery date range is calculated from the visitor's date after load | Chrome (local) | The test sets the clock to November 5 because JS months are 0-indexed, so the page correctly shows a November range instead of 'Oct 08-12'. |
+| Flaky (medium) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | The beforeEach navigation to localhost timed out waiting for the load event, and the test passed on retry. |
+| Flaky (medium) | Product info › Add to Cart updates the header basket badge | Chrome (local) | Same beforeEach page.goto load timeout as the quantity test; the page had rendered but the load event never fired, and the test passed on retry. |
+
+<details><summary>Product bug: Product info › sizes that are out of stock for the colour are disabled</summary>
+
+**Evidence:** `Expected: disabled / Received: enabled`; snapshot shows `radio "S (out of stock)"` and `radio "XL (out of stock)"` with no [disabled] state.
+
+**Next step:** Check the variant picker code that adds the '(out of stock)' label and confirm it also sets `disabled` on the size input; if leaving these sizes selectable is intended, update the test instead.
+
+</details>
+<details><summary>Test bug: Delivery estimate › the delivery date range is calculated from the visitor's date after load</summary>
+
+**Evidence:** Source line 10: `new Date(2026, 10, 5, 10)` (month 10 = November) vs comment 'Monday 5 October 2026'; snapshot shows `definition: Nov 10-12`, which is 3–5 working days after Thu 5 Nov.
+
+**Next step:** Change line 10 to `new Date(2026, 9, 5, 10)` so the date is 5 October, then rerun and confirm 'Oct 08-12' appears.
+
+</details>
+<details><summary>Flaky: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** `TimeoutError: page.goto: Timeout 30000ms exceeded ... waiting until "load"`; outcome flaky, attempts 2.
+
+**Next step:** Look for a slow subresource that delays the load event on the local server, or have gotoProduct wait for 'domcontentloaded' and then assert on the product heading.
+
+</details>
+<details><summary>Flaky: Product info › Add to Cart updates the header basket badge</summary>
+
+**Evidence:** `TimeoutError: page.goto: Timeout 30000ms exceeded`; the snapshot shows the full product page with 'Calculating delivery date' still pending, status 200.
+
+**Next step:** Investigate with the quantity-test timeout: run both specs with tracing on and find which request holds back the load event.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

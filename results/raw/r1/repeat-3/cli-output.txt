@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (9844 input / 1352 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**4 failures on local Chrome, none flaky: one clear test bug (size-chart row mix-up), a 502 from /api/product, and two product-info data mismatches that may stem from that API failure.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (high) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The locator targets the L row but the test expects the M row's length, so the assertion can never pass. |
+| Environment (high) | Smoke: site health › route responds: /api/product (/api/product) | Chrome (local) | The local target's /api/product endpoint returns a 5xx gateway error. |
+| Environment (low) | Product info › shows the product name and price | Chrome (local) | The page shows £25 instead of the expected £24.99, possibly fallback or stale data while /api/product is returning 502. |
+| Environment (low) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | Sage/S shows 11 in stock instead of the expected 12, likely the same data-source problem as the price mismatch. |
+
+<details><summary>Test bug: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** Locator getByRole('row', { name: /^L\b/ }) resolved to snapshot row "L 40.5 28 8.75"; expected "27.5" is in row "M 39 27.5 8.5". The variable is named rowM.
+
+**Next step:** Change line 12 to name: /^M\b/ (and check the 69.9 cm value matches M), or keep L and expect 28 inches.
+
+</details>
+<details><summary>Environment: Smoke: site health › route responds: /api/product (/api/product)</summary>
+
+**Evidence:** Error: /api/product returned 502 … Expected: < 400 Received: 502 (failed in 24ms on both attempts)
+
+**Next step:** Check the localhost:3100 server logs and confirm the upstream service behind /api/product is running and reachable, then rerun.
+
+</details>
+<details><summary>Environment: Product info › shows the product name and price</summary>
+
+**Evidence:** Snapshot: heading "Twill Overshirt" followed by paragraph: £25; getByText('£24.99', { exact: true }) found no element.
+
+**Next step:** Fix the /api/product 502 and rerun. If the page still shows £25, treat it as a price rounding/formatting product bug or update the profile test data.
+
+</details>
+<details><summary>Environment: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** Snapshot: paragraph: 11 In Stock with radio "Sage" [checked] and radio "S" [checked]; getByText('12 In Stock') not found.
+
+**Next step:** After /api/product is healthy, rerun. If stock is still 11, confirm the seeded stock for Sage/S and update either the fixture or the test.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

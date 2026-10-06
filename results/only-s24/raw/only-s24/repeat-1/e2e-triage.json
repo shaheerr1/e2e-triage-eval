@@ -1,0 +1,16 @@
+{
+  "verdict": "One real failure out of 11 run on local Chrome; it looks like a stale hardcoded stock count, though a product stock bug is not ruled out.",
+  "failures": [
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "low",
+      "summary": "The test expects '12 In Stock' for Sage/S, but the page shows 11 for that exact selection. This is most likely a hardcoded stock figure that no longer matches the data.",
+      "evidence": "getByText('12 In Stock') not found on both attempts; the snapshot shows 'paragraph: 11 In Stock' with radio \"Sage\" [checked] and radio \"S\" [checked], page 200 and no console errors.",
+      "next_step": "Check the real stock for Twill Overshirt Sage/S in the novera fixture or CMS. If it is 11, read expected stock from profile.data instead of hardcoding '12 In Stock' and '5 In Stock'. If it should be 12, file a product bug on the stock display."
+    }
+  ]
+}

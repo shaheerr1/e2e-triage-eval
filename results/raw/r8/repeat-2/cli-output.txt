@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (8926 input / 1368 output tokens).
+## E2E novera on local browsers: 2 failed, 2 flaky, 7 passed, 19 skipped
+
+**One likely product bug (quantity not clamped to stock) and one WAF 403 block; the two goto timeouts passed on retry. Together with the 403, the local target at localhost:3100 looks unstable.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (high) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | Typing 99 into the quantity field and blurring does not clamp it to the stock of 12 for Sage S. The stepper does disable the increase button. |
+| Environment (high) | Product info › Add to Cart updates the header basket badge | Chrome (local) | The page load was blocked by a security policy (403), so the header and basket button never rendered. |
+| Flaky (medium) | Smoke: site health › home page renders with site chrome | Chrome (local) | The first navigation hit the 30s load timeout and the test passed on retry. |
+| Flaky (medium) | Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | The beforeEach gotoProduct timed out waiting for the load event, even though the page had rendered, and the test passed on retry. |
+
+<details><summary>Product bug: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** Expected: "12" Received: "99" (stable over 24 checks, both attempts); snapshot: textbox "Quantity": "99" next to button "Increase quantity" [disabled] and paragraph "12 In Stock".
+
+**Next step:** Add clamping to the selected variant's stock in the quantity input's blur/change handler, matching the logic that already disables the increase button.
+
+</details>
+<details><summary>Environment: Product info › Add to Cart updates the header basket badge</summary>
+
+**Evidence:** lastNavigation status 403; console: "Failed to load resource: the server responded with a status of 403 (Forbidden)"; snapshot: heading "Access denied" / "Your request was blocked by the security policy."
+
+**Next step:** Find out which WAF or rate-limit rule on the localhost:3100 target blocks the test runner, then allowlist the runner or relax that rule for test runs and rerun.
+
+</details>
+<details><summary>Flaky: Smoke: site health › home page renders with site chrome</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded. navigating to "http://localhost:3100/", waiting until "load" (outcome flaky, 2 attempts).
+
+**Next step:** Check server startup and warm-up for localhost:3100: make sure the server is fully up before tests start, or add a warm-up request.
+
+</details>
+<details><summary>Flaky: Product info › sizes that are out of stock for the colour are disabled</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded at productPage.gotoProduct; the snapshot shows the full product page with status 200, but delivery still reads "Calculating delivery date".
+
+**Next step:** Identify the slow resource that delays the load event (for example the delivery-date call) and either fix it or have gotoProduct wait for 'domcontentloaded'.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

@@ -1,0 +1,12 @@
+Would send 21976 characters for 4 failures.
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+> Not triaged: dry run.
+
+| Test | Platforms | Error |
+|---|---|---|
+| Product info › shows the product name and price | Chrome (local) | Error: expect(locator).toBeVisible() failed |
+| Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | Error: expect(locator).toHaveCount(expected) failed |
+| Product extras › the size chart switches between inches and centimetres | Chrome (local) | TimeoutError: page.goto: Timeout 30000ms exceeded. |
+| Product info › selecting a colour updates the stock for the selected size | Chrome (local) | Error: expect(locator).toBeVisible() failed |
+

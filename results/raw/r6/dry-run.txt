@@ -1,0 +1,12 @@
+Would send 25995 characters for 4 failures.
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+> Not triaged: dry run.
+
+| Test | Platforms | Error |
+|---|---|---|
+| Product extras › opening an accordion item reveals its content | Chrome (local) | Error: expect(locator).toBeVisible() failed |
+| Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | TimeoutError: locator.fill: Timeout 15000ms exceeded. |
+| Product info › Add to Cart updates the header basket badge | Chrome (local) | TimeoutError: locator.waitFor: Timeout 15000ms exceeded. |
+| Delivery estimate › the delivery date range is calculated from the visitor's date after load | Chrome (local) (flaky) | TimeoutError: page.goto: Timeout 30000ms exceeded. |
+

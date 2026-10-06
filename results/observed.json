@@ -1,0 +1,322 @@
+[
+  {
+    "run": "r1",
+    "scenario": "s11",
+    "truth": "product_bug",
+    "sufficient": false,
+    "test": "Product info › shows the product name and price",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r1",
+    "scenario": "s16",
+    "truth": "environment",
+    "sufficient": false,
+    "test": "Smoke: site health › route responds: /api/product (/api/product)",
+    "errorType": "Error: /api/product returned 502",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r1",
+    "scenario": "s18",
+    "truth": "test_bug",
+    "sufficient": true,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "errorType": "Error: expect(locator).toContainText(expected) failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r1",
+    "scenario": "s24",
+    "truth": "product_bug",
+    "sufficient": false,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r2",
+    "scenario": "s02",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  },
+  {
+    "run": "r2",
+    "scenario": "s03",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  },
+  {
+    "run": "r2",
+    "scenario": "s05",
+    "truth": "product_bug",
+    "sufficient": true,
+    "test": "Product info › sizes that are out of stock for the colour are disabled",
+    "errorType": "Error: expect(locator).toBeDisabled() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r2",
+    "scenario": "s07",
+    "truth": "test_bug",
+    "sufficient": true,
+    "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r3",
+    "scenario": "s17",
+    "truth": "test_bug",
+    "sufficient": true,
+    "test": "Product extras › opening an accordion item reveals its content",
+    "errorType": "TimeoutError: locator.click: Timeout 15000ms exceeded.",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r3",
+    "scenario": "s19",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  },
+  {
+    "run": "r3",
+    "scenario": "s22",
+    "truth": "environment",
+    "sufficient": true,
+    "test": "Smoke: site health › home page renders with site chrome",
+    "errorType": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at http://novera-web.internal:3100/",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r3",
+    "scenario": "s29",
+    "truth": "test_bug",
+    "sufficient": true,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "errorType": "TimeoutError: locator.click: Timeout 15000ms exceeded.",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r4",
+    "scenario": "s06",
+    "truth": "product_bug",
+    "sufficient": true,
+    "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r4",
+    "scenario": "s09",
+    "truth": "environment",
+    "sufficient": true,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "errorType": "TimeoutError: locator.fill: Timeout 15000ms exceeded.",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r4",
+    "scenario": "s20",
+    "truth": "environment",
+    "sufficient": false,
+    "test": "Smoke: site health › route responds: home (/)",
+    "errorType": "Error: / returned 404",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r4",
+    "scenario": "s25",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  },
+  {
+    "run": "r5",
+    "scenario": "s04",
+    "truth": "environment",
+    "sufficient": true,
+    "test": "Product info › shows the product name and price",
+    "errorType": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3100/",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r5",
+    "scenario": "s10",
+    "truth": "test_bug",
+    "sufficient": true,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "errorType": "Error: expect(locator).toHaveText(expected) failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r5",
+    "scenario": "s14",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Product extras › opening an accordion item reveals its content",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  },
+  {
+    "run": "r5",
+    "scenario": "s27",
+    "truth": "product_bug",
+    "sufficient": true,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "errorType": "Error: expect(locator).toContainText(expected) failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r6",
+    "scenario": "s01",
+    "truth": "test_bug",
+    "sufficient": true,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "errorType": "TimeoutError: locator.fill: Timeout 15000ms exceeded.",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r6",
+    "scenario": "s15",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  },
+  {
+    "run": "r6",
+    "scenario": "s23",
+    "truth": "product_bug",
+    "sufficient": true,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "errorType": "TimeoutError: locator.waitFor: Timeout 15000ms exceeded.",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r6",
+    "scenario": "s28",
+    "truth": "product_bug",
+    "sufficient": true,
+    "test": "Product extras › opening an accordion item reveals its content",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r7",
+    "scenario": "s08",
+    "truth": "test_bug",
+    "sufficient": false,
+    "test": "Product info › sizes that are out of stock for the colour are disabled",
+    "errorType": "Error: expect(locator).toHaveCount(expected) failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r7",
+    "scenario": "s21",
+    "truth": "environment",
+    "sufficient": false,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r7",
+    "scenario": "s30",
+    "truth": "test_bug",
+    "sufficient": false,
+    "test": "Product info › shows the product name and price",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r7",
+    "scenario": "s31",
+    "truth": "environment",
+    "sufficient": true,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r8",
+    "scenario": "s12",
+    "truth": "product_bug",
+    "sufficient": true,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "errorType": "Error: expect(locator).toHaveValue(expected) failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r8",
+    "scenario": "s13",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Smoke: site health › home page renders with site chrome",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  },
+  {
+    "run": "r8",
+    "scenario": "s26",
+    "truth": "environment",
+    "sufficient": true,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  },
+  {
+    "run": "r8",
+    "scenario": "s32",
+    "truth": "flaky",
+    "sufficient": true,
+    "test": "Product info › sizes that are out of stock for the colour are disabled",
+    "errorType": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+    "outcome": "flaky",
+    "attempts": 2
+  }
+]

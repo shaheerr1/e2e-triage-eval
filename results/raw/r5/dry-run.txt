@@ -1,0 +1,12 @@
+Would send 20681 characters for 4 failures.
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+> Not triaged: dry run.
+
+| Test | Platforms | Error |
+|---|---|---|
+| Product extras › the size chart switches between inches and centimetres | Chrome (local) | Error: expect(locator).toContainText(expected) failed |
+| Product info › Add to Cart updates the header basket badge | Chrome (local) | Error: expect(locator).toHaveText(expected) failed |
+| Product info › shows the product name and price | Chrome (local) | Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3100/ |
+| Product extras › opening an accordion item reveals its content | Chrome (local) (flaky) | TimeoutError: page.goto: Timeout 30000ms exceeded. |
+

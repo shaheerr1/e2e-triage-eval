@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (9844 input / 1513 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**4 failures on local Chrome, none flaky (all failed both attempts): one clear test bug in the size-chart row selector, a 502 from /api/product, and two product-info mismatches (price and stock) that may come from that 502 or from stale test data.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (high) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The locator `rowM` targets the L row (/^L\b/) but asserts the M row's length value (27.5). |
+| Environment (medium) | Smoke: site health › route responds: /api/product (/api/product) | Chrome (local) | The local target's /api/product endpoint returns 502 on both attempts. |
+| Environment (low) | Product info › shows the product name and price | Chrome (local) | The page shows £25 instead of the expected £24.99, likely stale or fallback product data while /api/product 502s; a price-rounding bug is also possible. |
+| Environment (low) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | Stock for Sage/S shows 11 instead of the expected 12, consistent with product data drifting from the test fixture or fallback data while /api/product fails. |
+
+<details><summary>Test bug: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** Locator getByRole('row', { name: /^L\b/ }) received "L40.5288.75"; the snapshot has row "M 39 27.5 8.5", and the later 69.9 cm check equals 27.5 in, which is also M.
+
+**Next step:** Change the regex on line 12 of product-extras.spec.ts to /^M\b/, or keep L and expect 28 / 71.1.
+
+</details>
+<details><summary>Environment: Smoke: site health › route responds: /api/product (/api/product)</summary>
+
+**Evidence:** Error: /api/product returned 502 (Expected: < 400, Received: 502)
+
+**Next step:** Check the localhost:3100 server logs and upstream product data source for why /api/product 502s, then rerun.
+
+</details>
+<details><summary>Environment: Product info › shows the product name and price</summary>
+
+**Evidence:** getByText('£24.99', { exact: true }) not found; the snapshot shows paragraph: £25 under heading "Twill Overshirt".
+
+**Next step:** Fix the /api/product 502 and rerun; if £25 persists, compare the CMS price for products[0] and check whether the price formatter rounds to whole pounds.
+
+</details>
+<details><summary>Environment: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** getByText('12 In Stock') not found; the snapshot shows paragraph: 11 In Stock with radio "Sage" [checked] and radio "S" [checked].
+
+**Next step:** After /api/product is healthy, verify the Sage/S stock in the source data and either reset the fixture data or update the expectation in product-info.spec.ts.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

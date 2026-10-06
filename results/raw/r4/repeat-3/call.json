@@ -1,0 +1,55 @@
+{
+  "repeat": 3,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 7917,
+  "outputTokens": 1641,
+  "verdict": "Local dev server on localhost:3100 was unstable (503, a 404 on /, a goto timeout), so stabilise it and rerun; the delivery-date test separately points to a likely product bug.",
+  "failures": [
+    {
+      "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "product_bug",
+      "confidence": "medium",
+      "summary": "After load the delivery date never resolves, so the expected 'Oct 08-12' range is never rendered.",
+      "evidence": "Snapshot (HTTP 200, no page or console errors): term \"Delivery Date:\" → definition: Calculating delivery date. The same stuck text appears in the flaky test's snapshot, which did not fix the clock.",
+      "next_step": "Check the client-side delivery-date calculation on the product page and why it never replaces 'Calculating delivery date'. Also confirm it works with Playwright's page.clock.setFixedTime and with the '3-5 working days' rule the test assumes, given the page shows 'Within 4 Days'."
+    },
+    {
+      "test": "Product info › quantity cannot go above the stock of the selected variant",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "high",
+      "summary": "The server returned 503, so the product page and #quantity input never rendered.",
+      "evidence": "lastNavigation status 503; snapshot: heading \"Service Unavailable\"; console: 'the server responded with a status of 503'",
+      "next_step": "Find out why the local server at localhost:3100 returns 503 (backend or dependency not ready, or crashing under load), then rerun."
+    },
+    {
+      "test": "Smoke: site health › route responds: home (/)",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "low",
+      "summary": "The home route returned 404 on both attempts, while other tests loaded / with 200 in the same run.",
+      "evidence": "Error: / returned 404 — Expected: < 400, Received: 404 (durationMs 25)",
+      "next_step": "Check whether the smoke spec uses the same baseURL as the other tests and whether the server was fully up when it ran. If / really 404s on a healthy server, reclassify as product_bug."
+    },
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "flaky",
+      "confidence": "medium",
+      "summary": "The beforeEach page.goto timed out waiting for load, then the test passed on retry.",
+      "evidence": "TimeoutError: page.goto: Timeout 30000ms exceeded … waiting until \"load\"; outcome flaky, passed on attempt 2",
+      "next_step": "Likely the same local server instability that caused the 503. Ensure the server is warmed up and healthy before the suite starts (e.g. a webServer health-check URL)."
+    }
+  ],
+  "seconds": 20.3
+}

@@ -1,0 +1,435 @@
+{
+  "generatedAt": "2026-10-06T08:26:41.832Z",
+  "models": [
+    "claude-opus-5-5"
+  ],
+  "runs": 8,
+  "runsTriaged": 8,
+  "failures": 32,
+  "calls": {
+    "total": 24,
+    "ok": 24,
+    "inputTokens": 255936,
+    "outputTokens": 36962
+  },
+  "triage": {
+    "accuracyPerRepeat": [
+      {
+        "repeat": 1,
+        "correct": 30,
+        "n": 32,
+        "rate": 0.9375,
+        "ci": {
+          "low": 0.7985287670813637,
+          "high": 0.982689433124541
+        }
+      },
+      {
+        "repeat": 2,
+        "correct": 30,
+        "n": 32,
+        "rate": 0.9375,
+        "ci": {
+          "low": 0.7985287670813637,
+          "high": 0.982689433124541
+        }
+      },
+      {
+        "repeat": 3,
+        "correct": 29,
+        "n": 32,
+        "rate": 0.90625,
+        "ci": {
+          "low": 0.7578184512368681,
+          "high": 0.9675984489543291
+        }
+      }
+    ],
+    "pooled": {
+      "accuracy": {
+        "correct": 89,
+        "n": 96,
+        "rate": 0.9270833333333334,
+        "ci": {
+          "low": 0.8570696826547382,
+          "high": 0.9642324188849825
+        }
+      },
+      "perCategory": {
+        "product_bug": {
+          "support": 24,
+          "predicted": 17,
+          "tp": 17,
+          "precision": 1,
+          "recall": 0.7083333333333334,
+          "f1": 0.8292682926829268
+        },
+        "test_bug": {
+          "support": 24,
+          "predicted": 24,
+          "tp": 24,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "flaky": {
+          "support": 24,
+          "predicted": 24,
+          "tp": 24,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "environment": {
+          "support": 24,
+          "predicted": 30,
+          "tp": 24,
+          "precision": 0.8,
+          "recall": 1,
+          "f1": 0.888888888888889
+        }
+      },
+      "macroF1": 0.9295392953929539,
+      "confusion": {
+        "product_bug": {
+          "product_bug": 17,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 6,
+          "browserstack": 0,
+          "unknown": 1,
+          "missing": 0
+        },
+        "test_bug": {
+          "product_bug": 0,
+          "test_bug": 24,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "flaky": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 24,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "environment": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 24,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        }
+      },
+      "bySufficiency": {
+        "sufficient": {
+          "correct": 74,
+          "n": 75,
+          "rate": 0.9866666666666667,
+          "ci": {
+            "low": 0.928266343718021,
+            "high": 0.9976424488870104
+          }
+        },
+        "insufficient": {
+          "correct": 15,
+          "n": 21,
+          "rate": 0.7142857142857143,
+          "ci": {
+            "low": 0.5004361911516968,
+            "high": 0.8618613712823846
+          }
+        }
+      }
+    },
+    "majority": {
+      "accuracy": {
+        "correct": 30,
+        "n": 32,
+        "rate": 0.9375,
+        "ci": {
+          "low": 0.7985287670813637,
+          "high": 0.982689433124541
+        }
+      },
+      "perCategory": {
+        "product_bug": {
+          "support": 8,
+          "predicted": 6,
+          "tp": 6,
+          "precision": 1,
+          "recall": 0.75,
+          "f1": 0.8571428571428571
+        },
+        "test_bug": {
+          "support": 8,
+          "predicted": 8,
+          "tp": 8,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "flaky": {
+          "support": 8,
+          "predicted": 8,
+          "tp": 8,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "environment": {
+          "support": 8,
+          "predicted": 10,
+          "tp": 8,
+          "precision": 0.8,
+          "recall": 1,
+          "f1": 0.888888888888889
+        }
+      },
+      "macroF1": 0.9365079365079365,
+      "confusion": {
+        "product_bug": {
+          "product_bug": 6,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 2,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "test_bug": {
+          "product_bug": 0,
+          "test_bug": 8,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "flaky": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 8,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "environment": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 8,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        }
+      },
+      "bySufficiency": {
+        "sufficient": {
+          "correct": 25,
+          "n": 25,
+          "rate": 1,
+          "ci": {
+            "low": 0.866807747239609,
+            "high": 1
+          }
+        },
+        "insufficient": {
+          "correct": 5,
+          "n": 7,
+          "rate": 0.7142857142857143,
+          "ci": {
+            "low": 0.3589344495310541,
+            "high": 0.9177810767507166
+          }
+        }
+      }
+    },
+    "byConfidence": {
+      "high": {
+        "correct": 41,
+        "n": 41,
+        "rate": 1,
+        "ci": {
+          "low": 0.9143324285798755,
+          "high": 1
+        }
+      },
+      "medium": {
+        "correct": 45,
+        "n": 47,
+        "rate": 0.9574468085106383,
+        "ci": {
+          "low": 0.8575147221070161,
+          "high": 0.9882517241390656
+        }
+      },
+      "low": {
+        "correct": 3,
+        "n": 8,
+        "rate": 0.375,
+        "ci": {
+          "low": 0.13684428473912286,
+          "high": 0.694257607346229
+        }
+      }
+    },
+    "confidenceMix": {
+      "sufficient": {
+        "high": 36,
+        "medium": 36,
+        "low": 3,
+        "none": 0,
+        "lowShare": {
+          "correct": 3,
+          "n": 75,
+          "rate": 0.04,
+          "ci": {
+            "low": 0.013696064153575563,
+            "high": 0.11112987160331268
+          }
+        }
+      },
+      "insufficient": {
+        "high": 5,
+        "medium": 11,
+        "low": 5,
+        "none": 0,
+        "lowShare": {
+          "correct": 5,
+          "n": 21,
+          "rate": 0.23809523809523808,
+          "ci": {
+            "low": 0.10628012955399624,
+            "high": 0.45091173858212674
+          }
+        }
+      }
+    },
+    "stability": {
+      "correct": 31,
+      "n": 32,
+      "rate": 0.96875,
+      "ci": {
+        "low": 0.8425573603233156,
+        "high": 0.9944621398972968
+      }
+    },
+    "nextSteps": {
+      "filled": 0,
+      "blank": 32
+    }
+  },
+  "baseline": {
+    "accuracy": {
+      "correct": 24,
+      "n": 32,
+      "rate": 0.75,
+      "ci": {
+        "low": 0.5789344086290853,
+        "high": 0.8674759914885746
+      }
+    },
+    "perCategory": {
+      "product_bug": {
+        "support": 8,
+        "predicted": 8,
+        "tp": 4,
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5
+      },
+      "test_bug": {
+        "support": 8,
+        "predicted": 9,
+        "tp": 5,
+        "precision": 0.5555555555555556,
+        "recall": 0.625,
+        "f1": 0.5882352941176471
+      },
+      "flaky": {
+        "support": 8,
+        "predicted": 8,
+        "tp": 8,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "environment": {
+        "support": 8,
+        "predicted": 7,
+        "tp": 7,
+        "precision": 1,
+        "recall": 0.875,
+        "f1": 0.9333333333333333
+      }
+    },
+    "macroF1": 0.7553921568627451,
+    "confusion": {
+      "product_bug": {
+        "product_bug": 4,
+        "test_bug": 4,
+        "flaky": 0,
+        "environment": 0,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "test_bug": {
+        "product_bug": 3,
+        "test_bug": 5,
+        "flaky": 0,
+        "environment": 0,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "flaky": {
+        "product_bug": 0,
+        "test_bug": 0,
+        "flaky": 8,
+        "environment": 0,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "environment": {
+        "product_bug": 1,
+        "test_bug": 0,
+        "flaky": 0,
+        "environment": 7,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      }
+    },
+    "bySufficiency": {
+      "sufficient": {
+        "correct": 21,
+        "n": 25,
+        "rate": 0.84,
+        "ci": {
+          "low": 0.6534637822439173,
+          "high": 0.9359654858790167
+        }
+      },
+      "insufficient": {
+        "correct": 3,
+        "n": 7,
+        "rate": 0.42857142857142855,
+        "ci": {
+          "low": 0.15821985399244537,
+          "high": 0.7495416372469643
+        }
+      }
+    }
+  }
+}

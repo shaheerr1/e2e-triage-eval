@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (11099 input / 1463 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**4 failures on local Chrome: two test expectations are wrong, and two failures trace to a struggling localhost:3100 server (a goto timeout and 503s); no clear product defect.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (medium) | Product info › shows the product name and price | Chrome (local) | The test expects £24.90 but the page shows £24.99, which matches the .99 pricing used elsewhere on the site, so the hardcoded price is likely a typo or stale. |
+| Test bug (high) | Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | The test expects 3 out-of-stock sizes for Mustard, but there are only 4 sizes and it also asserts M and L are enabled, so at most 2 can be sold out; the page correctly shows 2. |
+| Environment (medium) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The local server at localhost:3100 did not finish loading within 30s on both attempts, so the test body never ran. |
+| Environment (medium) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | Mustard was checked, but the size and stock never updated while the page logged repeated 503s, so the backend data the page depends on was unavailable. |
+
+<details><summary>Test bug: Product info › shows the product name and price</summary>
+
+**Evidence:** Locator getByText('£24.90', { exact: true }) not found; snapshot: heading "Twill Overshirt" followed by paragraph: £24.99
+
+**Next step:** Confirm the Twill Overshirt price in the CMS test data, then change line 10 of product-info.spec.ts to £24.99 or read the price from profile.data.products[0].
+
+</details>
+<details><summary>Test bug: Product info › sizes that are out of stock for the colour are disabled</summary>
+
+**Evidence:** Expected: 3, Received: 2; snapshot: radio "S (out of stock)" [disabled], radio "M" [checked], radio "L", radio "XL (out of stock)" [disabled]
+
+**Next step:** Change toHaveCount(3) to toHaveCount(2) on line 30 of product-info.spec.ts, or assert S and XL by name.
+
+</details>
+<details><summary>Environment: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded ... navigating to "http://localhost:3100/", waiting until "load"; page title "Loading http://localhost:3100/"
+
+**Next step:** Check the localhost:3100 dev server logs for stalls or crashes during the run, and make sure it is warm and healthy before tests start.
+
+</details>
+<details><summary>Environment: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** 10× console error "Failed to load resource: ... status of 503 (Service Unavailable)"; snapshot: radio "Mustard" [checked], radio "S" [checked], paragraph: 12 In Stock, definition: Calculating delivery date
+
+**Next step:** Find which endpoint returned 503 (network log or trace) and fix the local backend; then rerun. The sibling Mustard test shows variant switching works when data loads.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

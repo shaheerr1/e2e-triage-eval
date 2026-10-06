@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-06T08:06:26.011Z",
+  "run": {
+    "site": "novera",
+    "browserstack": false,
+    "durationSeconds": 46,
+    "status": "failed"
+  },
+  "totals": {
+    "passed": 7,
+    "failed": 4,
+    "flaky": 0,
+    "skipped": 19
+  },
+  "projects": {
+    "chromium": {
+      "passed": 7,
+      "failed": 4,
+      "flaky": 0,
+      "skipped": 19,
+      "platform": "Chrome (local)"
+    }
+  },
+  "failures": [
+    {
+      "title": "Product extras › the size chart switches between inches and centimetres",
+      "file": "src/tests/novera/product-extras.spec.ts:8",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "failed",
+      "attempts": 2,
+      "durationMs": 10333,
+      "errors": [
+        "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('row', { name: /^L\\b/ })\nExpected substring: \"27.5\"\nReceived string:    \"L40.5288.75\"\nTimeout: 10000ms\n\nCall log:\n  - Expect \"toContainText\" getByRole('row', { name: /^L\\b/ }) with timeout 10000ms\n  - waiting for getByRole('row', { name: /^L\\b/ })\n    24 × locator resolved to <tr>…</tr>\n       - unexpected value \"L40.5288.75\"\n"
+      ],
+      "context": "# Test source (around the failing line)\n\n\n```ts\n  1  | import { test, expect } from \"../../e2e\";\n  2  | \n  3  | test.describe(\"Product extras\", () => {\n  4  |   test.beforeEach(async ({ productPage, profile }) => {\n  5  |     await productPage.gotoProduct(profile.data.products[0].path);\n  6  |   });\n  7  | \n  8  |   test(\"the size chart switches between inches and centimetres\", async ({ page }) => {\n  9  |     const heading = page.getByRole(\"heading\", { name: /^Size chart/ });\n  10 |     const inch = page.getByRole(\"button\", { name: \"INCH\" });\n  11 |     const cm = page.getByRole(\"button\", { name: \"CM\" });\n  12 |     const rowM = page.getByRole(\"row\", { name: /^L\\b/ });\n  13 | \n  14 |     await expect(heading).toContainText(\"In inches\");\n  15 |     await expect(inch).toHaveAttribute(\"aria-pressed\", \"true\");\n> 16 |     await expect(rowM).toContainText(\"27.5\");\n     |                        ^ Error: expect(locator).toContainText(expected) failed\n  17 | \n  18 |     await cm.click();\n  19 |     await expect(heading).toContainText(\"In cm\");\n  20 |     await expect(cm).toHaveAttribute(\"aria-pressed\", \"true\");\n  21 |     await expect(inch).toHaveAttribute(\"aria-pressed\", \"false\");\n  22 |     await expect(rowM).toContainText(\"69.9\");",
+      "page": {
+        "url": "http://localhost:3100/",
+        "title": "Novera | Twill Overshirt",
+        "lastNavigation": {
+          "url": "http://localhost:3100/",
+          "status": 200
+        },
+        "pageErrors": [],
+        "consoleErrors": [],
+        "snapshot": "- banner:\n  - navigation \"Main\":\n    - list:\n      - listitem:\n        - link \"Shop\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Category\":\n          - /url: \"#\"\n      - listitem:\n        - link \"About\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Support\":\n          - /url: \"#\"\n  - link \"Novera home\":\n    - /url: /\n    - text: novéra\n  - button \"Search\"\n  - button \"Basket, 0 items\"\n  - button \"Account\"\n  - button \"Menu\"\n- main:\n  - img \"Open overshirt worn with the collar up\"\n  - button \"Show image 1 of 4\"\n  - button \"Show image 2 of 4\"\n  - button \"Show image 3 of 4\"\n  - button \"Show image 4 of 4\"\n  - text: Rated 4.9/5 (2.5K reviews)\n  - heading \"Twill Overshirt\" [level=1]\n  - paragraph: £25\n  - paragraph:\n    - text: A relaxed overshirt in soft cotton twill, finished with chest flap pockets. Light enough to wear as a shirt and roomy enough to throw over a tee for easy layering.\n    - link \"Learn More\":\n      - /url: \"#product-details\"\n  - list:\n    - listitem:\n      - button \"Add to Favourite\"\n    - listitem:\n      - link \"Size Guide\":\n        - /url: \"#size-chart\"\n    - listitem:\n      - paragraph: 11 In Stock\n  - group \"Select colour\":\n    - text: Select colour\n    - radio \"Sage\" [checked]\n    - text: Sage\n    - radio \"Charcoal\"\n    - text: Charcoal\n    - radio \"Mustard\"\n    - text: Mustard\n    - radio \"Lime\"\n    - text: Lime\n    - radio \"Pink\"\n    - text: Pink\n  - separator\n  - group \"Select size\":\n    - text: Select size\n    - radio \"S\" [checked]\n    - text: S\n    - radio \"M\"\n    - text: M\n    - radio \"L\"\n    - text: L\n    - radio \"XL\"\n    - text: XL\n  - button \"Decrease quantity\" [disabled]\n  - text: Quantity\n  - textbox \"Quantity\": \"01\"\n  - button \"Increase quantity\"\n  - button \"Add to Cart\"\n  - paragraph\n  - term: \"Estimated Delivery:\"\n  - definition: Within 4 Days\n  - term: \"Delivery Date:\"\n  - definition: Oct 09-13\n  - region \"You May Also Like\":\n    - heading \"You May Also Like\" [level=2]\n    - list:\n      - listitem:\n        - link \"Tan leather crossbody bag with a large buckle Trending £65 Sable crossbody bag Hand Bag\":\n          - /url: \"#\"\n          - img \"Tan leather crossbody bag with a large buckle\"\n          - text: Trending £65 Sable crossbody bag Hand Bag\n      - listitem:\n        - link \"Model wearing a dark brown wool coat at night £49 Crestline wool coat Ready to Wear\":\n          - /url: \"#\"\n          - img \"Model wearing a dark brown wool coat at night\"\n          - text: £49 Crestline wool coat Ready to Wear\n  - region \"Product details\":\n    - group:\n      - heading \"Free Shipping Worldwide\" [level=3]\n    - group:\n      - heading \"Easy Returns & Exchanges\" [level=3]\n      - paragraph: If your purchase isn't quite right, you can request a return or exchange within our return period, subject to our policy terms.\n    - group:\n      - heading \"Premium Quality Materials\" [level=3]\n  - region \"Size chart - In inches (Expected Deviation < 3%)\":\n    - heading \"Size chart - In inches (Expected Deviation < 3%)\" [level=2]\n    - group \"Measurement unit\":\n      - button \"INCH\" [pressed]\n      - button \"CM\"\n    - table \"Garment measurements by size, in inches\":\n      - caption: Garment measurements by size, in inches\n      - rowgroup:\n        - row \"Size Chest (round) Length Sleeve\":\n          - columnheader \"Size\"\n          - columnheader \"Chest (round)\"\n          - columnheader \"Length\"\n          - columnheader \"Sleeve\"\n      - rowgroup:\n        - row \"M 39 27.5 8.5\":\n          - rowheader \"M\"\n          - cell \"39\"\n          - cell \"27.5\"\n          - cell \"8.5\"\n        - row \"L 40.5 28 8.75\":\n          - rowheader \"L\"\n          - cell \"40.5\"\n          - cell \"28\"\n          - cell \"8.75\"\n        - row \"XL 43 29 9\":\n          - rowheader \"XL\"\n          - cell \"43\"\n          - cell \"29\"\n          - cell \"9\"\n- alert"
+      },
+      "annotations": []
+    },
+    {
+      "title": "Product info › shows the product name and price",
+      "file": "src/tests/novera/product-info.spec.ts:8",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "failed",
+      "attempts": 2,
+      "durationMs": 10292,
+      "errors": [
+        "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('£24.99', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByText('£24.99', { exact: true }) with timeout 10000ms\n  - waiting for getByText('£24.99', { exact: true })\n"
+      ],
+      "context": "# Test source (around the failing line)\n\n\n```ts\n  1  | import { test, expect } from \"../../e2e\";\n  2  | \n  3  | test.describe(\"Product info\", () => {\n  4  |   test.beforeEach(async ({ productPage, profile }) => {\n  5  |     await productPage.gotoProduct(profile.data.products[0].path);\n  6  |   });\n  7  | \n  8  |   test(\"shows the product name and price\", async ({ productPage, page }) => {\n  9  |     await expect(productPage.title).toBeVisible();\n> 10 |     await expect(page.getByText(\"£24.99\", { exact: true })).toBeVisible();\n     |                                                             ^ Error: expect(locator).toBeVisible() failed\n  11 |   });\n  12 | \n  13 |   test(\"selecting a colour updates the stock for the selected size\", async ({\n  14 |     productPage,\n  15 |     page,\n  16 |   }) => {",
+      "page": {
+        "url": "http://localhost:3100/",
+        "title": "Novera | Twill Overshirt",
+        "lastNavigation": {
+          "url": "http://localhost:3100/",
+          "status": 200
+        },
+        "pageErrors": [],
+        "consoleErrors": [],
+        "snapshot": "- banner:\n  - navigation \"Main\":\n    - list:\n      - listitem:\n        - link \"Shop\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Category\":\n          - /url: \"#\"\n      - listitem:\n        - link \"About\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Support\":\n          - /url: \"#\"\n  - link \"Novera home\":\n    - /url: /\n    - text: novéra\n  - button \"Search\"\n  - button \"Basket, 0 items\"\n  - button \"Account\"\n  - button \"Menu\"\n- main:\n  - img \"Open overshirt worn with the collar up\"\n  - button \"Show image 1 of 4\"\n  - button \"Show image 2 of 4\"\n  - button \"Show image 3 of 4\"\n  - button \"Show image 4 of 4\"\n  - text: Rated 4.9/5 (2.5K reviews)\n  - heading \"Twill Overshirt\" [level=1]\n  - paragraph: £25\n  - paragraph:\n    - text: A relaxed overshirt in soft cotton twill, finished with chest flap pockets. Light enough to wear as a shirt and roomy enough to throw over a tee for easy layering.\n    - link \"Learn More\":\n      - /url: \"#product-details\"\n  - list:\n    - listitem:\n      - button \"Add to Favourite\"\n    - listitem:\n      - link \"Size Guide\":\n        - /url: \"#size-chart\"\n    - listitem:\n      - paragraph: 11 In Stock\n  - group \"Select colour\":\n    - text: Select colour\n    - radio \"Sage\" [checked]\n    - text: Sage\n    - radio \"Charcoal\"\n    - text: Charcoal\n    - radio \"Mustard\"\n    - text: Mustard\n    - radio \"Lime\"\n    - text: Lime\n    - radio \"Pink\"\n    - text: Pink\n  - separator\n  - group \"Select size\":\n    - text: Select size\n    - radio \"S\" [checked]\n    - text: S\n    - radio \"M\"\n    - text: M\n    - radio \"L\"\n    - text: L\n    - radio \"XL\"\n    - text: XL\n  - button \"Decrease quantity\" [disabled]\n  - text: Quantity\n  - textbox \"Quantity\": \"01\"\n  - button \"Increase quantity\"\n  - button \"Add to Cart\"\n  - paragraph\n  - term: \"Estimated Delivery:\"\n  - definition: Within 4 Days\n  - term: \"Delivery Date:\"\n  - definition: Oct 09-13\n  - region \"You May Also Like\":\n    - heading \"You May Also Like\" [level=2]\n    - list:\n      - listitem:\n        - link \"Tan leather crossbody bag with a large buckle Trending £65 Sable crossbody bag Hand Bag\":\n          - /url: \"#\"\n          - img \"Tan leather crossbody bag with a large buckle\"\n          - text: Trending £65 Sable crossbody bag Hand Bag\n      - listitem:\n        - link \"Model wearing a dark brown wool coat at night £49 Crestline wool coat Ready to Wear\":\n          - /url: \"#\"\n          - img \"Model wearing a dark brown wool coat at night\"\n          - text: £49 Crestline wool coat Ready to Wear\n  - region \"Product details\":\n    - group:\n      - heading \"Free Shipping Worldwide\" [level=3]\n    - group:\n      - heading \"Easy Returns & Exchanges\" [level=3]\n      - paragraph: If your purchase isn't quite right, you can request a return or exchange within our return period, subject to our policy terms.\n    - group:\n      - heading \"Premium Quality Materials\" [level=3]\n  - region \"Size chart - In inches (Expected Deviation < 3%)\":\n    - heading \"Size chart - In inches (Expected Deviation < 3%)\" [level=2]\n    - group \"Measurement unit\":\n      - button \"INCH\" [pressed]\n      - button \"CM\"\n    - table \"Garment measurements by size, in inches\":\n      - caption: Garment measurements by size, in inches\n      - rowgroup:\n        - row \"Size Chest (round) Length Sleeve\":\n          - columnheader \"Size\"\n          - columnheader \"Chest (round)\"\n          - columnheader \"Length\"\n          - columnheader \"Sleeve\"\n      - rowgroup:\n        - row \"M 39 27.5 8.5\":\n          - rowheader \"M\"\n          - cell \"39\"\n          - cell \"27.5\"\n          - cell \"8.5\"\n        - row \"L 40.5 28 8.75\":\n          - rowheader \"L\"\n          - cell \"40.5\"\n          - cell \"28\"\n          - cell \"8.75\"\n        - row \"XL 43 29 9\":\n          - rowheader \"XL\"\n          - cell \"43\"\n          - cell \"29\"\n          - cell \"9\"\n- alert"
+      },
+      "annotations": []
+    },
+    {
+      "title": "Product info › selecting a colour updates the stock for the selected size",
+      "file": "src/tests/novera/product-info.spec.ts:13",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "failed",
+      "attempts": 2,
+      "durationMs": 10320,
+      "errors": [
+        "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('12 In Stock')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByText('12 In Stock') with timeout 10000ms\n  - waiting for getByText('12 In Stock')\n"
+      ],
+      "context": "# Test source (around the failing line)\n\n\n```ts\n  1  | import { test, expect } from \"../../e2e\";\n  2  | \n  3  | test.describe(\"Product info\", () => {\n  4  |   test.beforeEach(async ({ productPage, profile }) => {\n  5  |     await productPage.gotoProduct(profile.data.products[0].path);\n  6  |   });\n  7  | \n  8  |   test(\"shows the product name and price\", async ({ productPage, page }) => {\n  9  |     await expect(productPage.title).toBeVisible();\n  10 |     await expect(page.getByText(\"£24.99\", { exact: true })).toBeVisible();\n  11 |   });\n  12 | \n  13 |   test(\"selecting a colour updates the stock for the selected size\", async ({\n  14 |     productPage,\n  15 |     page,\n  16 |   }) => {\n  17 |     // Sage, size S\n> 18 |     await expect(page.getByText(\"12 In Stock\")).toBeVisible();\n     |                                                 ^ Error: expect(locator).toBeVisible() failed\n  19 | \n  20 |     // Mustard has no S, so the size moves to M (5 in stock)\n  21 |     await productPage.variantButton(\"colour-mustard\").click();\n  22 |     await expect(productPage.variantButton(\"colour-mustard\")).toBeChecked();\n  23 |     await expect(page.getByText(\"5 In Stock\")).toBeVisible();\n  24 |   });",
+      "page": {
+        "url": "http://localhost:3100/",
+        "title": "Novera | Twill Overshirt",
+        "lastNavigation": {
+          "url": "http://localhost:3100/",
+          "status": 200
+        },
+        "pageErrors": [],
+        "consoleErrors": [],
+        "snapshot": "- banner:\n  - navigation \"Main\":\n    - list:\n      - listitem:\n        - link \"Shop\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Category\":\n          - /url: \"#\"\n      - listitem:\n        - link \"About\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Support\":\n          - /url: \"#\"\n  - link \"Novera home\":\n    - /url: /\n    - text: novéra\n  - button \"Search\"\n  - button \"Basket, 0 items\"\n  - button \"Account\"\n  - button \"Menu\"\n- main:\n  - img \"Open overshirt worn with the collar up\"\n  - button \"Show image 1 of 4\"\n  - button \"Show image 2 of 4\"\n  - button \"Show image 3 of 4\"\n  - button \"Show image 4 of 4\"\n  - text: Rated 4.9/5 (2.5K reviews)\n  - heading \"Twill Overshirt\" [level=1]\n  - paragraph: £25\n  - paragraph:\n    - text: A relaxed overshirt in soft cotton twill, finished with chest flap pockets. Light enough to wear as a shirt and roomy enough to throw over a tee for easy layering.\n    - link \"Learn More\":\n      - /url: \"#product-details\"\n  - list:\n    - listitem:\n      - button \"Add to Favourite\"\n    - listitem:\n      - link \"Size Guide\":\n        - /url: \"#size-chart\"\n    - listitem:\n      - paragraph: 11 In Stock\n  - group \"Select colour\":\n    - text: Select colour\n    - radio \"Sage\" [checked]\n    - text: Sage\n    - radio \"Charcoal\"\n    - text: Charcoal\n    - radio \"Mustard\"\n    - text: Mustard\n    - radio \"Lime\"\n    - text: Lime\n    - radio \"Pink\"\n    - text: Pink\n  - separator\n  - group \"Select size\":\n    - text: Select size\n    - radio \"S\" [checked]\n    - text: S\n    - radio \"M\"\n    - text: M\n    - radio \"L\"\n    - text: L\n    - radio \"XL\"\n    - text: XL\n  - button \"Decrease quantity\" [disabled]\n  - text: Quantity\n  - textbox \"Quantity\": \"01\"\n  - button \"Increase quantity\"\n  - button \"Add to Cart\"\n  - paragraph\n  - term: \"Estimated Delivery:\"\n  - definition: Within 4 Days\n  - term: \"Delivery Date:\"\n  - definition: Oct 09-13\n  - region \"You May Also Like\":\n    - heading \"You May Also Like\" [level=2]\n    - list:\n      - listitem:\n        - link \"Tan leather crossbody bag with a large buckle Trending £65 Sable crossbody bag Hand Bag\":\n          - /url: \"#\"\n          - img \"Tan leather crossbody bag with a large buckle\"\n          - text: Trending £65 Sable crossbody bag Hand Bag\n      - listitem:\n        - link \"Model wearing a dark brown wool coat at night £49 Crestline wool coat Ready to Wear\":\n          - /url: \"#\"\n          - img \"Model wearing a dark brown wool coat at night\"\n          - text: £49 Crestline wool coat Ready to Wear\n  - region \"Product details\":\n    - group:\n      - heading \"Free Shipping Worldwide\" [level=3]\n    - group:\n      - heading \"Easy Returns & Exchanges\" [level=3]\n      - paragraph: If your purchase isn't quite right, you can request a return or exchange within our return period, subject to our policy terms.\n    - group:\n      - heading \"Premium Quality Materials\" [level=3]\n  - region \"Size chart - In inches (Expected Deviation < 3%)\":\n    - heading \"Size chart - In inches (Expected Deviation < 3%)\" [level=2]\n    - group \"Measurement unit\":\n      - button \"INCH\" [pressed]\n      - button \"CM\"\n    - table \"Garment measurements by size, in inches\":\n      - caption: Garment measurements by size, in inches\n      - rowgroup:\n        - row \"Size Chest (round) Length Sleeve\":\n          - columnheader \"Size\"\n          - columnheader \"Chest (round)\"\n          - columnheader \"Length\"\n          - columnheader \"Sleeve\"\n      - rowgroup:\n        - row \"M 39 27.5 8.5\":\n          - rowheader \"M\"\n          - cell \"39\"\n          - cell \"27.5\"\n          - cell \"8.5\"\n        - row \"L 40.5 28 8.75\":\n          - rowheader \"L\"\n          - cell \"40.5\"\n          - cell \"28\"\n          - cell \"8.75\"\n        - row \"XL 43 29 9\":\n          - rowheader \"XL\"\n          - cell \"43\"\n          - cell \"29\"\n          - cell \"9\"\n- alert"
+      },
+      "annotations": []
+    },
+    {
+      "title": "Smoke: site health › route responds: /api/product (/api/product)",
+      "file": "../../node_modules/@blaze-cms/plugin-testing-e2e/dist/specs/smoke.js:17",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "failed",
+      "attempts": 2,
+      "durationMs": 24,
+      "errors": [
+        "Error: /api/product returned 502\n\nexpect(received).toBeLessThan(expected)\n\nExpected: < 400\nReceived:   502"
+      ],
+      "annotations": []
+    }
+  ]
+}

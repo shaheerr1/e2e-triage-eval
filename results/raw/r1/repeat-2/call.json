@@ -1,0 +1,55 @@
+{
+  "repeat": 2,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 9844,
+  "outputTokens": 1207,
+  "verdict": "4 failures on local Chrome: /api/product returns 502, which likely explains the wrong price and stock; the size-chart test asserts on the wrong row.",
+  "failures": [
+    {
+      "test": "Smoke: site health › route responds: /api/product (/api/product)",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "high",
+      "summary": "The product API on the local target returns a 502 Bad Gateway.",
+      "evidence": "Error: /api/product returned 502 … Expected: < 400 Received: 502",
+      "next_step": "Check the localhost:3100 server logs and confirm the upstream /api/product backend is running and reachable, then rerun."
+    },
+    {
+      "test": "Product info › shows the product name and price",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "medium",
+      "summary": "The page shows £25 instead of £24.99, probably fallback or stale data because /api/product is returning 502.",
+      "evidence": "getByText('£24.99', { exact: true }) element(s) not found; snapshot shows 'paragraph: £25' under heading 'Twill Overshirt'",
+      "next_step": "Fix the /api/product 502 and rerun. If it still shows £25, treat it as a price-formatting or rounding product bug."
+    },
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "medium",
+      "summary": "Stock for Sage/S shows 11 instead of the expected 12, probably fallback or stale data while /api/product returns 502.",
+      "evidence": "getByText('12 In Stock') not found; snapshot shows 'paragraph: 11 In Stock' with radio 'Sage' [checked] and 'S' [checked]",
+      "next_step": "Fix the /api/product 502 and rerun. If it still shows 11, compare the stock fixture in profile data with the CMS value and update whichever is wrong."
+    },
+    {
+      "test": "Product extras › the size chart switches between inches and centimetres",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The locator is named rowM but uses /^L\\b/, so it selects the L row, while the expected 27.5 is M's length.",
+      "evidence": "Received string: \"L40.5288.75\"; snapshot row \"M 39 27.5 8.5\" holds 27.5",
+      "next_step": "Change the locator in product-extras.spec.ts line 12 to getByRole('row', { name: /^M\\b/ }) and check that the cm expectation 69.9 matches M."
+    }
+  ],
+  "seconds": 11.5
+}

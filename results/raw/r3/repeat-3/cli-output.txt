@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (9945 input / 1285 output tokens).
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+**Not a site outage: two selector mistakes in the product specs, one smoke test pointed at an unresolvable host, and one page-load flake; no product bugs shown.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (high) | Product extras › opening an accordion item reveals its content | Chrome (local) | The test clicks a heading named 'Free Worldwide Shipping', but the page names it 'Free Shipping Worldwide'. |
+| Test bug (high) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | The test uses variant id 'colour-yellow', but the colour option is Mustard; the next test in the same file uses 'colour-mustard'. |
+| Environment (high) | Smoke: site health › home page renders with site chrome | Chrome (local) | The smoke spec navigates to http://novera-web.internal:3100/, which does not resolve; every other test uses localhost:3100. |
+| Flaky (medium) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | Page load in beforeEach timed out on the first attempt; the test passed on retry. |
+
+<details><summary>Test bug: Product extras › opening an accordion item reveals its content</summary>
+
+**Evidence:** Error: "waiting for getByRole('heading', { name: 'Free Worldwide Shipping' })". Snapshot under region "Product details": heading "Free Shipping Worldwide" [level=3].
+
+**Next step:** In product-extras.spec.ts:33, change the heading name to 'Free Shipping Worldwide' (or check with content whether the copy changed on purpose), then confirm the /^Every order ships free/ body text still matches.
+
+</details>
+<details><summary>Test bug: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** Error: "waiting for locator('#colour-yellow')". Snapshot group "Select colour": radios Sage, Charcoal, Mustard, Lime, Pink, with no yellow.
+
+**Next step:** In product-info.spec.ts:21-22, change variantButton("colour-yellow") to variantButton("colour-mustard").
+
+</details>
+<details><summary>Environment: Smoke: site health › home page renders with site chrome</summary>
+
+**Evidence:** "page.goto: net::ERR_NAME_NOT_RESOLVED at http://novera-web.internal:3100/"
+
+**Next step:** Find where the smoke spec gets its base URL (env var or site profile for novera) and point it at http://localhost:3100, or add a DNS/hosts entry for novera-web.internal.
+
+</details>
+<details><summary>Flaky: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** outcome "flaky", attempts 2; first error: "page.goto: Timeout 30000ms exceeded. navigating to \"http://localhost:3100/\", waiting until \"load\"".
+
+**Next step:** Watch for repeat goto timeouts on localhost:3100; if they recur, check the local server's cold-start time or use waitUntil 'domcontentloaded' in gotoProduct.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

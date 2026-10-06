@@ -1,0 +1,12 @@
+[
+  {
+    "run": "only-s24",
+    "scenario": "s24",
+    "truth": "product_bug",
+    "sufficient": false,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "errorType": "Error: expect(locator).toBeVisible() failed",
+    "outcome": "failed",
+    "attempts": 2
+  }
+]

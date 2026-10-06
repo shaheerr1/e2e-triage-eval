@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (13172 input / 2041 output tokens).
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+**3 hard failures and 1 flaky on local Chrome. One is clearly a stale selector, the accordion looks like a real site defect, and the add-to-cart failure needs a quick check of the page object.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (medium) | Product extras › opening an accordion item reveals its content | Chrome (local) | Clicking the 'Free Shipping Worldwide' accordion heading does not expand its panel, so the body text stays hidden. |
+| Product bug (low) | Product info › Add to Cart updates the header basket badge | Chrome (local) | After choosing Charcoal and quantity 2, the basket never updated and the '.site-header__badge' element never appeared. |
+| Test bug (high) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | The test's CSS selector for the quantity input no longer matches, although the input is on the page. |
+| Flaky (high) | Delivery estimate › the delivery date range is calculated from the visitor's date after load | Chrome (local) | The first attempt timed out waiting for the page 'load' event and the test passed on retry. |
+
+<details><summary>Product bug: Product extras › opening an accordion item reveals its content</summary>
+
+**Evidence:** Failed on both attempts. getByText(/^Every order ships free/) resolved to <p class="product-details__body"> but stayed "hidden". In the snapshot the Free Shipping group shows only its heading, while 'Easy Returns & Exchanges' shows its paragraph.
+
+**Next step:** Open the product page locally and click the Free Shipping heading. If it does not expand, fix the accordion toggle; if only the summary or button toggles it, change the test to click that element.
+
+</details>
+<details><summary>Product bug: Product info › Add to Cart updates the header basket badge</summary>
+
+**Evidence:** "waiting for locator('.site-header__badge') to be visible" timed out. The snapshot still shows button "Basket, 0 items" and button "Add to Cart" (not "Added"), with Charcoal checked and Quantity "02".
+
+**Next step:** Check that productPage.addToCart actually clicks Add to Cart before waiting, and whether '.site-header__badge' is a stale class like the quantity selector. Then add to cart manually to see if the basket count updates.
+
+</details>
+<details><summary>Test bug: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** "waiting for locator('.quantity-stepper__field')" timed out, while the snapshot shows textbox "Quantity": "01".
+
+**Next step:** Replace page.locator('.quantity-stepper__field') with page.getByRole('textbox', { name: 'Quantity' }), or reuse the page object's quantity locator.
+
+</details>
+<details><summary>Flaky: Delivery estimate › the delivery date range is calculated from the visitor's date after load</summary>
+
+**Evidence:** "page.goto: Timeout 30000ms exceeded ... waiting until \"load\"". Outcome flaky. The snapshot shows the correct definition "Oct 08-12".
+
+**Next step:** Check the local server's cold-start time. If load timeouts recur, warm up the server before the run or have gotoProduct wait for 'domcontentloaded'.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

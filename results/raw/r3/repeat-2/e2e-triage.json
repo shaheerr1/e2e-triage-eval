@@ -1,0 +1,49 @@
+{
+  "verdict": "Run failed with no product defects visible: two stale selectors in the product specs, one smoke test pointed at an unresolvable host, and one goto timeout that passed on retry.",
+  "failures": [
+    {
+      "test": "Product extras › opening an accordion item reveals its content",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The test targets a heading named 'Free Worldwide Shipping', but the page renders it with the words in a different order.",
+      "evidence": "Waiting for getByRole('heading', { name: 'Free Worldwide Shipping' }); the snapshot has heading \"Free Shipping Worldwide\" [level=3] in region \"Product details\".",
+      "next_step": "Change the locator at product-extras.spec.ts:33 to 'Free Shipping Worldwide', or confirm with content owners which wording is intended."
+    },
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The test clicks '#colour-yellow', but the colour option is Mustard, and the spec's own comment and the next test both use 'colour-mustard'.",
+      "evidence": "Waiting for locator('#colour-yellow'); the snapshot shows radio \"Mustard\" and no yellow option.",
+      "next_step": "Change variantButton(\"colour-yellow\") to variantButton(\"colour-mustard\") on lines 21–22 of product-info.spec.ts."
+    },
+    {
+      "test": "Smoke: site health › home page renders with site chrome",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "high",
+      "summary": "The smoke spec navigates to a hostname that does not resolve, while the other specs reach the site at localhost:3100.",
+      "evidence": "page.goto: net::ERR_NAME_NOT_RESOLVED at http://novera-web.internal:3100/",
+      "next_step": "Find where the smoke spec gets its base URL (env var or profile) and set it to http://localhost:3100, or make novera-web.internal resolvable on the runner."
+    },
+    {
+      "test": "Product extras › the size chart switches between inches and centimetres",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "flaky",
+      "confidence": "medium",
+      "summary": "The first attempt timed out loading the product page in beforeEach, and the test passed on retry.",
+      "evidence": "TimeoutError: page.goto: Timeout 30000ms exceeded, outcome \"flaky\"; the snapshot shows the page fully rendered with status 200.",
+      "next_step": "Watch for repeat goto timeouts on the local server; if they recur, warm up the dev server before the run or wait for 'domcontentloaded' instead of 'load'."
+    }
+  ]
+}

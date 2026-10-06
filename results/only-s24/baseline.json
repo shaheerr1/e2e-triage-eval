@@ -1,0 +1,12 @@
+[
+  {
+    "run": "only-s24",
+    "scenario": "s24",
+    "repeat": 1,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "truth": "product_bug",
+    "sufficient": false,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  }
+]

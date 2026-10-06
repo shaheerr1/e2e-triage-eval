@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (8926 input / 1254 output tokens).
+## E2E novera on local browsers: 2 failed, 2 flaky, 7 passed, 19 skipped
+
+**Failed: one likely product bug (quantity not clamped to stock), one 403 block from the local server, and two page.goto timeouts that passed on retry; all on local Chrome only.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (medium) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | After typing 99 and blurring, the quantity input keeps 99 instead of clamping to the Sage/S stock of 12, though the increase button does disable. |
+| Environment (high) | Product info › Add to Cart updates the header basket badge | Chrome (local) | The server returned a 403 security-policy block page instead of the product page, so the basket button never existed. |
+| Flaky (medium) | Smoke: site health › home page renders with site chrome | Chrome (local) | The first page.goto to localhost:3100 hit the 30s load timeout and the retry passed. |
+| Flaky (medium) | Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | The beforeEach gotoProduct navigation timed out at 30s and the retry passed; the snapshot shows the page fully rendered. |
+
+<details><summary>Product bug: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** Expected: "12" Received: "99" (24× resolved); snapshot: textbox "Quantity": "99", button "Increase quantity" [disabled], paragraph: 12 In Stock
+
+**Next step:** Check the quantity stepper's blur/change handler: it should clamp typed values to the selected variant's stock (12 for Sage/S). Also confirm that fill() plus blur() fires the event the component listens to.
+
+</details>
+<details><summary>Environment: Product info › Add to Cart updates the header basket badge</summary>
+
+**Evidence:** lastNavigation status 403; snapshot: heading "Access denied" / "Your request was blocked by the security policy."
+
+**Next step:** Find what security policy or rate limiting the localhost:3100 server applies (WAF or bot middleware), allowlist the test runner or disable it for e2e, then rerun.
+
+</details>
+<details><summary>Flaky: Smoke: site health › home page renders with site chrome</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded … waiting until "load"; outcome flaky, attempts 2
+
+**Next step:** Check whether the local server was still warming up or being throttled. Add a readiness wait before tests start, or wait for 'domcontentloaded' instead of 'load'.
+
+</details>
+<details><summary>Flaky: Product info › sizes that are out of stock for the colour are disabled</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded at productPage.gotoProduct (line 5); snapshot shows a full product page with status 200
+
+**Next step:** Look at slow-loading resources holding up the 'load' event on the product page (definition shows "Calculating delivery date"). Consider waitUntil 'domcontentloaded' in gotoProduct.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

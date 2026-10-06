@@ -1,0 +1,22 @@
+{
+  "repeat": 2,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 4246,
+  "outputTokens": 561,
+  "verdict": "1 failure out of 11 executed tests on local Chrome; the page loaded fine (200, no errors), but the stock count is 11 where the test expects 12.",
+  "failures": [
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "medium",
+      "summary": "The test hardcodes '12 In Stock' for Sage/S, but the page shows 11, so the stock figure has likely drifted from the test's expectation.",
+      "evidence": "Snapshot shows `paragraph: 11 In Stock` with `radio \"Sage\" [checked]` and `radio \"S\" [checked]`; the test expects getByText('12 In Stock'). It failed on both attempts, with no page or console errors.",
+      "next_step": "Check the Sage/S stock in the fixture or CMS data for profile.data.products[0]. If 11 is correct (or something decremented it), read the expected count from test data instead of hardcoding it; if the source says 12, treat this as a product bug in the stock display."
+    }
+  ],
+  "seconds": 7.5
+}

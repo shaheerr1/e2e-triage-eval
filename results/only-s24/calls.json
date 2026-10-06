@@ -1,0 +1,35 @@
+[
+  {
+    "run": "only-s24",
+    "repeat": 1,
+    "ok": true,
+    "model": "claude-opus-5-5",
+    "inputTokens": 4246,
+    "outputTokens": 601,
+    "verdict": "One real failure out of 11 run on local Chrome; it looks like a stale hardcoded stock count, though a product stock bug is not ruled out.",
+    "seconds": 9,
+    "entries": 1
+  },
+  {
+    "run": "only-s24",
+    "repeat": 2,
+    "ok": true,
+    "model": "claude-opus-5-5",
+    "inputTokens": 4246,
+    "outputTokens": 561,
+    "verdict": "1 failure out of 11 executed tests on local Chrome; the page loaded fine (200, no errors), but the stock count is 11 where the test expects 12.",
+    "seconds": 7.5,
+    "entries": 1
+  },
+  {
+    "run": "only-s24",
+    "repeat": 3,
+    "ok": true,
+    "model": "claude-opus-5-5",
+    "inputTokens": 4246,
+    "outputTokens": 696,
+    "verdict": "One real failure out of 11 executed tests on local Chrome: a hardcoded stock count no longer matches the page, most likely data drift rather than a site defect.",
+    "seconds": 9.1,
+    "entries": 1
+  }
+]

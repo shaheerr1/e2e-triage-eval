@@ -1,0 +1,18 @@
+[
+  {
+    "id": "only-s24",
+    "scenarios": [
+      "s24"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 6426,
+    "totals": {
+      "passed": 10,
+      "failed": 1,
+      "flaky": 0,
+      "skipped": 19
+    }
+  }
+]

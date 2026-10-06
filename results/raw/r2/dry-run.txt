@@ -1,0 +1,12 @@
+Would send 27557 characters for 4 failures.
+## E2E novera on local browsers: 2 failed, 2 flaky, 7 passed, 19 skipped
+
+> Not triaged: dry run.
+
+| Test | Platforms | Error |
+|---|---|---|
+| Delivery estimate › the delivery date range is calculated from the visitor's date after load | Chrome (local) | Error: expect(locator).toBeVisible() failed |
+| Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | Error: expect(locator).toBeDisabled() failed |
+| Product info › quantity cannot go above the stock of the selected variant | Chrome (local) (flaky) | TimeoutError: page.goto: Timeout 30000ms exceeded. |
+| Product info › Add to Cart updates the header basket badge | Chrome (local) (flaky) | TimeoutError: page.goto: Timeout 30000ms exceeded. |
+

@@ -1,0 +1,422 @@
+{
+  "generatedAt": "2026-10-06T08:03:24.942Z",
+  "models": [
+    "claude-opus-5-5"
+  ],
+  "runs": 1,
+  "runsTriaged": 1,
+  "failures": 1,
+  "calls": {
+    "total": 3,
+    "ok": 3,
+    "inputTokens": 12738,
+    "outputTokens": 1858
+  },
+  "triage": {
+    "accuracyPerRepeat": [
+      {
+        "repeat": 1,
+        "correct": 0,
+        "n": 1,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.7934506882081973
+        }
+      },
+      {
+        "repeat": 2,
+        "correct": 0,
+        "n": 1,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.7934506882081973
+        }
+      },
+      {
+        "repeat": 3,
+        "correct": 0,
+        "n": 1,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.7934506882081973
+        }
+      }
+    ],
+    "pooled": {
+      "accuracy": {
+        "correct": 0,
+        "n": 3,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.5614970356393196
+        }
+      },
+      "perCategory": {
+        "product_bug": {
+          "support": 3,
+          "predicted": 0,
+          "tp": 0,
+          "precision": null,
+          "recall": 0,
+          "f1": null
+        },
+        "test_bug": {
+          "support": 0,
+          "predicted": 3,
+          "tp": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": null
+        },
+        "flaky": {
+          "support": 0,
+          "predicted": 0,
+          "tp": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "environment": {
+          "support": 0,
+          "predicted": 0,
+          "tp": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        }
+      },
+      "macroF1": null,
+      "confusion": {
+        "product_bug": {
+          "product_bug": 0,
+          "test_bug": 3,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "test_bug": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "flaky": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "environment": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        }
+      },
+      "bySufficiency": {
+        "sufficient": {
+          "correct": 0,
+          "n": 0,
+          "rate": null,
+          "ci": null
+        },
+        "insufficient": {
+          "correct": 0,
+          "n": 3,
+          "rate": 0,
+          "ci": {
+            "low": 0,
+            "high": 0.5614970356393196
+          }
+        }
+      }
+    },
+    "majority": {
+      "accuracy": {
+        "correct": 0,
+        "n": 1,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.7934506882081973
+        }
+      },
+      "perCategory": {
+        "product_bug": {
+          "support": 1,
+          "predicted": 0,
+          "tp": 0,
+          "precision": null,
+          "recall": 0,
+          "f1": null
+        },
+        "test_bug": {
+          "support": 0,
+          "predicted": 1,
+          "tp": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": null
+        },
+        "flaky": {
+          "support": 0,
+          "predicted": 0,
+          "tp": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "environment": {
+          "support": 0,
+          "predicted": 0,
+          "tp": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        }
+      },
+      "macroF1": null,
+      "confusion": {
+        "product_bug": {
+          "product_bug": 0,
+          "test_bug": 1,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "test_bug": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "flaky": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        },
+        "environment": {
+          "product_bug": 0,
+          "test_bug": 0,
+          "flaky": 0,
+          "environment": 0,
+          "browserstack": 0,
+          "unknown": 0,
+          "missing": 0
+        }
+      },
+      "bySufficiency": {
+        "sufficient": {
+          "correct": 0,
+          "n": 0,
+          "rate": null,
+          "ci": null
+        },
+        "insufficient": {
+          "correct": 0,
+          "n": 1,
+          "rate": 0,
+          "ci": {
+            "low": 0,
+            "high": 0.7934506882081973
+          }
+        }
+      }
+    },
+    "byConfidence": {
+      "high": {
+        "correct": 0,
+        "n": 0,
+        "rate": null,
+        "ci": null
+      },
+      "medium": {
+        "correct": 0,
+        "n": 1,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.7934506882081973
+        }
+      },
+      "low": {
+        "correct": 0,
+        "n": 2,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.6576197760453506
+        }
+      }
+    },
+    "confidenceMix": {
+      "sufficient": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 0,
+        "lowShare": {
+          "correct": 0,
+          "n": 0,
+          "rate": null,
+          "ci": null
+        }
+      },
+      "insufficient": {
+        "high": 0,
+        "medium": 1,
+        "low": 2,
+        "none": 0,
+        "lowShare": {
+          "correct": 2,
+          "n": 3,
+          "rate": 0.6666666666666666,
+          "ci": {
+            "low": 0.2076595988078242,
+            "high": 0.9385080559790691
+          }
+        }
+      }
+    },
+    "stability": {
+      "correct": 1,
+      "n": 1,
+      "rate": 1,
+      "ci": {
+        "low": 0.2065493117918027,
+        "high": 1
+      }
+    },
+    "nextSteps": {
+      "yes": 0,
+      "partly": 0,
+      "no": 0,
+      "blank": 3
+    }
+  },
+  "baseline": {
+    "accuracy": {
+      "correct": 0,
+      "n": 1,
+      "rate": 0,
+      "ci": {
+        "low": 0,
+        "high": 0.7934506882081973
+      }
+    },
+    "perCategory": {
+      "product_bug": {
+        "support": 1,
+        "predicted": 0,
+        "tp": 0,
+        "precision": null,
+        "recall": 0,
+        "f1": null
+      },
+      "test_bug": {
+        "support": 0,
+        "predicted": 1,
+        "tp": 0,
+        "precision": 0,
+        "recall": null,
+        "f1": null
+      },
+      "flaky": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      },
+      "environment": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "macroF1": null,
+    "confusion": {
+      "product_bug": {
+        "product_bug": 0,
+        "test_bug": 1,
+        "flaky": 0,
+        "environment": 0,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "test_bug": {
+        "product_bug": 0,
+        "test_bug": 0,
+        "flaky": 0,
+        "environment": 0,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "flaky": {
+        "product_bug": 0,
+        "test_bug": 0,
+        "flaky": 0,
+        "environment": 0,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "environment": {
+        "product_bug": 0,
+        "test_bug": 0,
+        "flaky": 0,
+        "environment": 0,
+        "browserstack": 0,
+        "unknown": 0,
+        "missing": 0
+      }
+    },
+    "bySufficiency": {
+      "sufficient": {
+        "correct": 0,
+        "n": 0,
+        "rate": null,
+        "ci": null
+      },
+      "insufficient": {
+        "correct": 0,
+        "n": 1,
+        "rate": 0,
+        "ci": {
+          "low": 0,
+          "high": 0.7934506882081973
+        }
+      }
+    }
+  }
+}

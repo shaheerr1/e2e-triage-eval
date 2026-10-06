@@ -1,0 +1,322 @@
+[
+  {
+    "run": "r1",
+    "scenario": "s11",
+    "repeat": 1,
+    "test": "Product info › shows the product name and price",
+    "truth": "product_bug",
+    "sufficient": false,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r1",
+    "scenario": "s16",
+    "repeat": 1,
+    "test": "Smoke: site health › route responds: /api/product (/api/product)",
+    "truth": "environment",
+    "sufficient": false,
+    "predicted": "environment",
+    "rule": "response status"
+  },
+  {
+    "run": "r1",
+    "scenario": "s18",
+    "repeat": 1,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "truth": "test_bug",
+    "sufficient": true,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r1",
+    "scenario": "s24",
+    "repeat": 1,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "truth": "product_bug",
+    "sufficient": false,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r2",
+    "scenario": "s02",
+    "repeat": 1,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  },
+  {
+    "run": "r2",
+    "scenario": "s03",
+    "repeat": 1,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  },
+  {
+    "run": "r2",
+    "scenario": "s05",
+    "repeat": 1,
+    "test": "Product info › sizes that are out of stock for the colour are disabled",
+    "truth": "product_bug",
+    "sufficient": true,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r2",
+    "scenario": "s07",
+    "repeat": 1,
+    "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+    "truth": "test_bug",
+    "sufficient": true,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r3",
+    "scenario": "s17",
+    "repeat": 1,
+    "test": "Product extras › opening an accordion item reveals its content",
+    "truth": "test_bug",
+    "sufficient": true,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r3",
+    "scenario": "s19",
+    "repeat": 1,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  },
+  {
+    "run": "r3",
+    "scenario": "s22",
+    "repeat": 1,
+    "test": "Smoke: site health › home page renders with site chrome",
+    "truth": "environment",
+    "sufficient": true,
+    "predicted": "environment",
+    "rule": "network error"
+  },
+  {
+    "run": "r3",
+    "scenario": "s29",
+    "repeat": 1,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "truth": "test_bug",
+    "sufficient": true,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r4",
+    "scenario": "s06",
+    "repeat": 1,
+    "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+    "truth": "product_bug",
+    "sufficient": true,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r4",
+    "scenario": "s09",
+    "repeat": 1,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "truth": "environment",
+    "sufficient": true,
+    "predicted": "environment",
+    "rule": "navigation status"
+  },
+  {
+    "run": "r4",
+    "scenario": "s20",
+    "repeat": 1,
+    "test": "Smoke: site health › route responds: home (/)",
+    "truth": "environment",
+    "sufficient": false,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r4",
+    "scenario": "s25",
+    "repeat": 1,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  },
+  {
+    "run": "r5",
+    "scenario": "s04",
+    "repeat": 1,
+    "test": "Product info › shows the product name and price",
+    "truth": "environment",
+    "sufficient": true,
+    "predicted": "environment",
+    "rule": "network error"
+  },
+  {
+    "run": "r5",
+    "scenario": "s10",
+    "repeat": 1,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "truth": "test_bug",
+    "sufficient": true,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r5",
+    "scenario": "s14",
+    "repeat": 1,
+    "test": "Product extras › opening an accordion item reveals its content",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  },
+  {
+    "run": "r5",
+    "scenario": "s27",
+    "repeat": 1,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "truth": "product_bug",
+    "sufficient": true,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r6",
+    "scenario": "s01",
+    "repeat": 1,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "truth": "test_bug",
+    "sufficient": true,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r6",
+    "scenario": "s15",
+    "repeat": 1,
+    "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  },
+  {
+    "run": "r6",
+    "scenario": "s23",
+    "repeat": 1,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "truth": "product_bug",
+    "sufficient": true,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r6",
+    "scenario": "s28",
+    "repeat": 1,
+    "test": "Product extras › opening an accordion item reveals its content",
+    "truth": "product_bug",
+    "sufficient": true,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r7",
+    "scenario": "s08",
+    "repeat": 1,
+    "test": "Product info › sizes that are out of stock for the colour are disabled",
+    "truth": "test_bug",
+    "sufficient": false,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r7",
+    "scenario": "s21",
+    "repeat": 1,
+    "test": "Product extras › the size chart switches between inches and centimetres",
+    "truth": "environment",
+    "sufficient": false,
+    "predicted": "environment",
+    "rule": "navigation timeout"
+  },
+  {
+    "run": "r7",
+    "scenario": "s30",
+    "repeat": 1,
+    "test": "Product info › shows the product name and price",
+    "truth": "test_bug",
+    "sufficient": false,
+    "predicted": "test_bug",
+    "rule": "locator absent"
+  },
+  {
+    "run": "r7",
+    "scenario": "s31",
+    "repeat": 1,
+    "test": "Product info › selecting a colour updates the stock for the selected size",
+    "truth": "environment",
+    "sufficient": true,
+    "predicted": "environment",
+    "rule": "asset status"
+  },
+  {
+    "run": "r8",
+    "scenario": "s12",
+    "repeat": 1,
+    "test": "Product info › quantity cannot go above the stock of the selected variant",
+    "truth": "product_bug",
+    "sufficient": true,
+    "predicted": "product_bug",
+    "rule": "default"
+  },
+  {
+    "run": "r8",
+    "scenario": "s13",
+    "repeat": 1,
+    "test": "Smoke: site health › home page renders with site chrome",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  },
+  {
+    "run": "r8",
+    "scenario": "s26",
+    "repeat": 1,
+    "test": "Product info › Add to Cart updates the header basket badge",
+    "truth": "environment",
+    "sufficient": true,
+    "predicted": "environment",
+    "rule": "navigation status"
+  },
+  {
+    "run": "r8",
+    "scenario": "s32",
+    "repeat": 1,
+    "test": "Product info › sizes that are out of stock for the colour are disabled",
+    "truth": "flaky",
+    "sufficient": true,
+    "predicted": "flaky",
+    "rule": "flaky status"
+  }
+]

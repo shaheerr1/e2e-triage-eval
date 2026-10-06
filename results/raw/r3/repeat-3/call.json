@@ -1,0 +1,55 @@
+{
+  "repeat": 3,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 9945,
+  "outputTokens": 1285,
+  "verdict": "Not a site outage: two selector mistakes in the product specs, one smoke test pointed at an unresolvable host, and one page-load flake; no product bugs shown.",
+  "failures": [
+    {
+      "test": "Product extras › opening an accordion item reveals its content",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The test clicks a heading named 'Free Worldwide Shipping', but the page names it 'Free Shipping Worldwide'.",
+      "evidence": "Error: \"waiting for getByRole('heading', { name: 'Free Worldwide Shipping' })\". Snapshot under region \"Product details\": heading \"Free Shipping Worldwide\" [level=3].",
+      "next_step": "In product-extras.spec.ts:33, change the heading name to 'Free Shipping Worldwide' (or check with content whether the copy changed on purpose), then confirm the /^Every order ships free/ body text still matches."
+    },
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The test uses variant id 'colour-yellow', but the colour option is Mustard; the next test in the same file uses 'colour-mustard'.",
+      "evidence": "Error: \"waiting for locator('#colour-yellow')\". Snapshot group \"Select colour\": radios Sage, Charcoal, Mustard, Lime, Pink, with no yellow.",
+      "next_step": "In product-info.spec.ts:21-22, change variantButton(\"colour-yellow\") to variantButton(\"colour-mustard\")."
+    },
+    {
+      "test": "Smoke: site health › home page renders with site chrome",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "high",
+      "summary": "The smoke spec navigates to http://novera-web.internal:3100/, which does not resolve; every other test uses localhost:3100.",
+      "evidence": "\"page.goto: net::ERR_NAME_NOT_RESOLVED at http://novera-web.internal:3100/\"",
+      "next_step": "Find where the smoke spec gets its base URL (env var or site profile for novera) and point it at http://localhost:3100, or add a DNS/hosts entry for novera-web.internal."
+    },
+    {
+      "test": "Product extras › the size chart switches between inches and centimetres",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "flaky",
+      "confidence": "medium",
+      "summary": "Page load in beforeEach timed out on the first attempt; the test passed on retry.",
+      "evidence": "outcome \"flaky\", attempts 2; first error: \"page.goto: Timeout 30000ms exceeded. navigating to \\\"http://localhost:3100/\\\", waiting until \\\"load\\\"\".",
+      "next_step": "Watch for repeat goto timeouts on localhost:3100; if they recur, check the local server's cold-start time or use waitUntil 'domcontentloaded' in gotoProduct."
+    }
+  ],
+  "seconds": 11.7
+}

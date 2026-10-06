@@ -1,0 +1,154 @@
+[
+  {
+    "id": "r1",
+    "scenarios": [
+      "s11",
+      "s16",
+      "s18",
+      "s24"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 18814,
+    "totals": {
+      "passed": 7,
+      "failed": 4,
+      "flaky": 0,
+      "skipped": 19
+    }
+  },
+  {
+    "id": "r2",
+    "scenarios": [
+      "s02",
+      "s03",
+      "s05",
+      "s07"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 27557,
+    "totals": {
+      "passed": 7,
+      "failed": 2,
+      "flaky": 2,
+      "skipped": 19
+    }
+  },
+  {
+    "id": "r3",
+    "scenarios": [
+      "s17",
+      "s19",
+      "s22",
+      "s29"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 19051,
+    "totals": {
+      "passed": 7,
+      "failed": 3,
+      "flaky": 1,
+      "skipped": 19
+    }
+  },
+  {
+    "id": "r4",
+    "scenarios": [
+      "s06",
+      "s09",
+      "s20",
+      "s25"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 14624,
+    "totals": {
+      "passed": 7,
+      "failed": 3,
+      "flaky": 1,
+      "skipped": 19
+    }
+  },
+  {
+    "id": "r5",
+    "scenarios": [
+      "s04",
+      "s10",
+      "s14",
+      "s27"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 20681,
+    "totals": {
+      "passed": 7,
+      "failed": 3,
+      "flaky": 1,
+      "skipped": 19
+    }
+  },
+  {
+    "id": "r6",
+    "scenarios": [
+      "s01",
+      "s15",
+      "s23",
+      "s28"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 25995,
+    "totals": {
+      "passed": 7,
+      "failed": 3,
+      "flaky": 1,
+      "skipped": 19
+    }
+  },
+  {
+    "id": "r7",
+    "scenarios": [
+      "s08",
+      "s21",
+      "s30",
+      "s31"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 21976,
+    "totals": {
+      "passed": 7,
+      "failed": 4,
+      "flaky": 0,
+      "skipped": 19
+    }
+  },
+  {
+    "id": "r8",
+    "scenarios": [
+      "s12",
+      "s13",
+      "s26",
+      "s32"
+    ],
+    "triaged": true,
+    "problems": [],
+    "leakage": [],
+    "dryRunChars": 16856,
+    "totals": {
+      "passed": 7,
+      "failed": 2,
+      "flaky": 2,
+      "skipped": 19
+    }
+  }
+]

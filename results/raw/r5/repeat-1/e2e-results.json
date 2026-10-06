@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-06T08:16:12.860Z",
+  "run": {
+    "site": "novera",
+    "browserstack": false,
+    "durationSeconds": 61,
+    "status": "failed"
+  },
+  "totals": {
+    "passed": 7,
+    "failed": 3,
+    "flaky": 1,
+    "skipped": 19
+  },
+  "projects": {
+    "chromium": {
+      "passed": 7,
+      "failed": 3,
+      "flaky": 1,
+      "skipped": 19,
+      "platform": "Chrome (local)"
+    }
+  },
+  "failures": [
+    {
+      "title": "Product extras › the size chart switches between inches and centimetres",
+      "file": "src/tests/novera/product-extras.spec.ts:8",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "failed",
+      "attempts": 2,
+      "durationMs": 11064,
+      "errors": [
+        "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('row', { name: /^M\\b/ })\nExpected substring: \"69.9\"\nReceived string:    \"M95.667.420.8\"\nTimeout: 10000ms\n\nCall log:\n  - Expect \"toContainText\" getByRole('row', { name: /^M\\b/ }) with timeout 10000ms\n  - waiting for getByRole('row', { name: /^M\\b/ })\n    24 × locator resolved to <tr>…</tr>\n       - unexpected value \"M95.667.420.8\"\n"
+      ],
+      "context": "# Test source (around the failing line)\n\n\n```ts\n  1  | import { test, expect } from \"../../e2e\";\n  2  | \n  3  | test.describe(\"Product extras\", () => {\n  4  |   test.beforeEach(async ({ productPage, profile }) => {\n  5  |     await productPage.gotoProduct(profile.data.products[0].path);\n  6  |   });\n  7  | \n  8  |   test(\"the size chart switches between inches and centimetres\", async ({ page }) => {\n  9  |     const heading = page.getByRole(\"heading\", { name: /^Size chart/ });\n  10 |     const inch = page.getByRole(\"button\", { name: \"INCH\" });\n  11 |     const cm = page.getByRole(\"button\", { name: \"CM\" });\n  12 |     const rowM = page.getByRole(\"row\", { name: /^M\\b/ });\n  13 | \n  14 |     await expect(heading).toContainText(\"In inches\");\n  15 |     await expect(inch).toHaveAttribute(\"aria-pressed\", \"true\");\n  16 |     await expect(rowM).toContainText(\"27.5\");\n  17 | \n  18 |     await cm.click();\n  19 |     await expect(heading).toContainText(\"In cm\");\n  20 |     await expect(cm).toHaveAttribute(\"aria-pressed\", \"true\");\n  21 |     await expect(inch).toHaveAttribute(\"aria-pressed\", \"false\");\n> 22 |     await expect(rowM).toContainText(\"69.9\");\n     |                        ^ Error: expect(locator).toContainText(expected) failed\n  23 | \n  24 |     await inch.click();\n  25 |     await expect(heading).toContainText(\"In inches\");\n  26 |     await expect(rowM).toContainText(\"27.5\");\n  27 |   });\n  28 |",
+      "page": {
+        "url": "http://localhost:3100/",
+        "title": "Novera | Twill Overshirt",
+        "lastNavigation": {
+          "url": "http://localhost:3100/",
+          "status": 200
+        },
+        "pageErrors": [],
+        "consoleErrors": [],
+        "snapshot": "- banner:\n  - navigation \"Main\":\n    - list:\n      - listitem:\n        - link \"Shop\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Category\":\n          - /url: \"#\"\n      - listitem:\n        - link \"About\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Support\":\n          - /url: \"#\"\n  - link \"Novera home\":\n    - /url: /\n    - text: novéra\n  - button \"Search\"\n  - button \"Basket, 0 items\"\n  - button \"Account\"\n  - button \"Menu\"\n- main:\n  - img \"Open overshirt worn with the collar up\"\n  - button \"Show image 1 of 4\"\n  - button \"Show image 2 of 4\"\n  - button \"Show image 3 of 4\"\n  - button \"Show image 4 of 4\"\n  - text: Rated 4.9/5 (2.5K reviews)\n  - heading \"Twill Overshirt\" [level=1]\n  - paragraph: £24.99\n  - paragraph:\n    - text: A relaxed overshirt in soft cotton twill, finished with chest flap pockets. Light enough to wear as a shirt and roomy enough to throw over a tee for easy layering.\n    - link \"Learn More\":\n      - /url: \"#product-details\"\n  - list:\n    - listitem:\n      - button \"Add to Favourite\"\n    - listitem:\n      - link \"Size Guide\":\n        - /url: \"#size-chart\"\n    - listitem:\n      - paragraph: 12 In Stock\n  - group \"Select colour\":\n    - text: Select colour\n    - radio \"Sage\" [checked]\n    - text: Sage\n    - radio \"Charcoal\"\n    - text: Charcoal\n    - radio \"Mustard\"\n    - text: Mustard\n    - radio \"Lime\"\n    - text: Lime\n    - radio \"Pink\"\n    - text: Pink\n  - separator\n  - group \"Select size\":\n    - text: Select size\n    - radio \"S\" [checked]\n    - text: S\n    - radio \"M\"\n    - text: M\n    - radio \"L\"\n    - text: L\n    - radio \"XL\"\n    - text: XL\n  - button \"Decrease quantity\" [disabled]\n  - text: Quantity\n  - textbox \"Quantity\": \"01\"\n  - button \"Increase quantity\"\n  - button \"Add to Cart\"\n  - paragraph\n  - term: \"Estimated Delivery:\"\n  - definition: Within 4 Days\n  - term: \"Delivery Date:\"\n  - definition: Oct 09-13\n  - region \"You May Also Like\":\n    - heading \"You May Also Like\" [level=2]\n    - list:\n      - listitem:\n        - link \"Tan leather crossbody bag with a large buckle Trending £64.99 Sable crossbody bag Hand Bag\":\n          - /url: \"#\"\n          - img \"Tan leather crossbody bag with a large buckle\"\n          - text: Trending £64.99 Sable crossbody bag Hand Bag\n      - listitem:\n        - link \"Model wearing a dark brown wool coat at night £48.99 Crestline wool coat Ready to Wear\":\n          - /url: \"#\"\n          - img \"Model wearing a dark brown wool coat at night\"\n          - text: £48.99 Crestline wool coat Ready to Wear\n  - region \"Product details\":\n    - group:\n      - heading \"Free Shipping Worldwide\" [level=3]\n    - group:\n      - heading \"Easy Returns & Exchanges\" [level=3]\n      - paragraph: If your purchase isn't quite right, you can request a return or exchange within our return period, subject to our policy terms.\n    - group:\n      - heading \"Premium Quality Materials\" [level=3]\n  - region \"Size chart - In cm (Expected Deviation < 3%)\":\n    - heading \"Size chart - In cm (Expected Deviation < 3%)\" [level=2]\n    - group \"Measurement unit\":\n      - button \"INCH\"\n      - button \"CM\" [pressed]\n    - table \"Garment measurements by size, in cm\":\n      - caption: Garment measurements by size, in cm\n      - rowgroup:\n        - row \"Size Chest (round) Length Sleeve\":\n          - columnheader \"Size\"\n          - columnheader \"Chest (round)\"\n          - columnheader \"Length\"\n          - columnheader \"Sleeve\"\n      - rowgroup:\n        - row \"M 95.6 67.4 20.8\":\n          - rowheader \"M\"\n          - cell \"95.6\"\n          - cell \"67.4\"\n          - cell \"20.8\"\n        - row \"L 99.2 68.6 21.4\":\n          - rowheader \"L\"\n          - cell \"99.2\"\n          - cell \"68.6\"\n          - cell \"21.4\"\n        - row \"XL 105.4 71.1 22.1\":\n          - rowheader \"XL\"\n          - cell \"105.4\"\n          - cell \"71.1\"\n          - cell \"22.1\"\n- alert"
+      },
+      "annotations": []
+    },
+    {
+      "title": "Product info › Add to Cart updates the header basket badge",
+      "file": "src/tests/novera/product-info.spec.ts:47",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "failed",
+      "attempts": 2,
+      "durationMs": 10624,
+      "errors": [
+        "Error: expect(locator).toHaveText(expected) failed\n\nLocator:  locator('.product-info__add').first()\nExpected: \"2\"\nReceived: \"Add to Cart\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveText\" locator('.product-info__add').first() with timeout 10000ms\n  - waiting for locator('.product-info__add').first()\n    8 × locator resolved to <button type=\"button\" class=\"product-info__add\">Added</button>\n      - unexpected value \"Added\"\n    16 × locator resolved to <button type=\"button\" class=\"product-info__add\">Add to Cart</button>\n       - unexpected value \"Add to Cart\"\n"
+      ],
+      "context": "# Test source (around the failing line)\n\n  22 |     await expect(productPage.variantButton(\"colour-mustard\")).toBeChecked();\n  23 |     await expect(page.getByText(\"5 In Stock\")).toBeVisible();\n  24 |   });\n  25 | \n  26 |   test(\"sizes that are out of stock for the colour are disabled\", async ({ productPage, page }) => {\n  27 |     await productPage.variantButton(\"colour-mustard\").click();\n  28 | \n  29 |     await expect(page.getByRole(\"radio\", { name: \"S (out of stock)\" })).toBeDisabled();\n  30 |     await expect(page.getByRole(\"radio\", { name: \"XL (out of stock)\" })).toBeDisabled();\n  31 |     await expect(page.getByRole(\"radio\", { name: \"M\", exact: true })).toBeEnabled();\n  32 |     await expect(page.getByRole(\"radio\", { name: \"L\", exact: true })).toBeEnabled();\n  33 |   });\n  34 | \n  35 |   test(\"quantity cannot go above the stock of the selected variant\", async ({\n  36 |     productPage,\n  37 |     page,\n  38 |   }) => {\n  39 |     // Sage S has 12 in stock\n  40 |     await productPage.quantityInput.fill(\"99\");\n  41 |     await productPage.quantityInput.blur();\n  42 | \n  43 |     await expect(productPage.quantityInput).toHaveValue(\"12\");\n  44 |     await expect(page.getByRole(\"button\", { name: \"Increase quantity\" })).toBeDisabled();\n  45 |   });\n  46 | \n  47 |   test(\"Add to Cart updates the header basket badge\", async ({ productPage, page }) => {\n  48 |     await expect(page.getByRole(\"button\", { name: \"Basket, 0 items\" })).toBeVisible();\n  49 | \n  50 |     await productPage.addToCart({ variant: \"colour-charcoal\", quantity: 2 });\n  51 | \n> 52 |     await expect(productPage.addToCartButton).toHaveText(\"2\");\n     |                                               ^ Error: expect(locator).toHaveText(expected) failed\n  53 |     await expect(page.getByRole(\"button\", { name: \"Basket, 2 items\" })).toBeVisible();\n  54 |     await expect(productPage.addToCartButton).toHaveText(\"Added\");\n  55 |   });\n  56 | });\n  57 | \n```",
+      "page": {
+        "url": "http://localhost:3100/",
+        "title": "Novera | Twill Overshirt",
+        "lastNavigation": {
+          "url": "http://localhost:3100/",
+          "status": 200
+        },
+        "pageErrors": [],
+        "consoleErrors": [],
+        "snapshot": "- banner:\n  - navigation \"Main\":\n    - list:\n      - listitem:\n        - link \"Shop\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Category\":\n          - /url: \"#\"\n      - listitem:\n        - link \"About\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Support\":\n          - /url: \"#\"\n  - link \"Novera home\":\n    - /url: /\n    - text: novéra\n  - button \"Search\"\n  - button \"Basket, 2 items\"\n  - button \"Account\"\n  - button \"Menu\"\n- main:\n  - img \"Open overshirt worn with the collar up\"\n  - button \"Show image 1 of 4\"\n  - button \"Show image 2 of 4\"\n  - button \"Show image 3 of 4\"\n  - button \"Show image 4 of 4\"\n  - text: Rated 4.9/5 (2.5K reviews)\n  - heading \"Twill Overshirt\" [level=1]\n  - paragraph: £24.99\n  - paragraph:\n    - text: A relaxed overshirt in soft cotton twill, finished with chest flap pockets. Light enough to wear as a shirt and roomy enough to throw over a tee for easy layering.\n    - link \"Learn More\":\n      - /url: \"#product-details\"\n  - list:\n    - listitem:\n      - button \"Add to Favourite\"\n    - listitem:\n      - link \"Size Guide\":\n        - /url: \"#size-chart\"\n    - listitem:\n      - paragraph: 7 In Stock\n  - group \"Select colour\":\n    - text: Select colour\n    - radio \"Sage\"\n    - text: Sage\n    - radio \"Charcoal\" [checked]\n    - text: Charcoal\n    - radio \"Mustard\"\n    - text: Mustard\n    - radio \"Lime\"\n    - text: Lime\n    - radio \"Pink\"\n    - text: Pink\n  - separator\n  - group \"Select size\":\n    - text: Select size\n    - radio \"S\" [checked]\n    - text: S\n    - radio \"M (out of stock)\" [disabled]\n    - text: M (out of stock)\n    - radio \"L\"\n    - text: L\n    - radio \"XL\"\n    - text: XL\n  - button \"Decrease quantity\"\n  - text: Quantity\n  - textbox \"Quantity\": \"02\"\n  - button \"Increase quantity\"\n  - button \"Add to Cart\"\n  - paragraph\n  - term: \"Estimated Delivery:\"\n  - definition: Within 4 Days\n  - term: \"Delivery Date:\"\n  - definition: Oct 09-13\n  - region \"You May Also Like\":\n    - heading \"You May Also Like\" [level=2]\n    - list:\n      - listitem:\n        - link \"Tan leather crossbody bag with a large buckle Trending £64.99 Sable crossbody bag Hand Bag\":\n          - /url: \"#\"\n          - img \"Tan leather crossbody bag with a large buckle\"\n          - text: Trending £64.99 Sable crossbody bag Hand Bag\n      - listitem:\n        - link \"Model wearing a dark brown wool coat at night £48.99 Crestline wool coat Ready to Wear\":\n          - /url: \"#\"\n          - img \"Model wearing a dark brown wool coat at night\"\n          - text: £48.99 Crestline wool coat Ready to Wear\n  - region \"Product details\":\n    - group:\n      - heading \"Free Shipping Worldwide\" [level=3]\n    - group:\n      - heading \"Easy Returns & Exchanges\" [level=3]\n      - paragraph: If your purchase isn't quite right, you can request a return or exchange within our return period, subject to our policy terms.\n    - group:\n      - heading \"Premium Quality Materials\" [level=3]\n  - region \"Size chart - In inches (Expected Deviation < 3%)\":\n    - heading \"Size chart - In inches (Expected Deviation < 3%)\" [level=2]\n    - group \"Measurement unit\":\n      - button \"INCH\" [pressed]\n      - button \"CM\"\n    - table \"Garment measurements by size, in inches\":\n      - caption: Garment measurements by size, in inches\n      - rowgroup:\n        - row \"Size Chest (round) Length Sleeve\":\n          - columnheader \"Size\"\n          - columnheader \"Chest (round)\"\n          - columnheader \"Length\"\n          - columnheader \"Sleeve\"\n      - rowgroup:\n        - row \"M 39 27.5 8.5\":\n          - rowheader \"M\"\n          - cell \"39\"\n          - cell \"27.5\"\n          - cell \"8.5\"\n        - row \"L 40.5 28 8.75\":\n          - rowheader \"L\"\n          - cell \"40.5\"\n          - cell \"28\"\n          - cell \"8.75\"\n        - row \"XL 43 29 9\":\n          - rowheader \"XL\"\n          - cell \"43\"\n          - cell \"29\"\n          - cell \"9\"\n- alert"
+      },
+      "annotations": []
+    },
+    {
+      "title": "Product info › shows the product name and price",
+      "file": "src/tests/novera/product-info.spec.ts:8",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "failed",
+      "attempts": 2,
+      "durationMs": 167,
+      "errors": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3100/\nCall log:\n  - navigating to \"http://localhost:3100/\", waiting until \"load\"\n"
+      ],
+      "context": "# Test source (around the failing line)\n\n\n```ts\n  1  | import { test, expect } from \"../../e2e\";\n  2  | \n  3  | test.describe(\"Product info\", () => {\n  4  |   test.beforeEach(async ({ productPage, profile }) => {\n> 5  |     await productPage.gotoProduct(profile.data.products[0].path);\n     |                       ^ Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3100/\n  6  |   });\n  7  | \n  8  |   test(\"shows the product name and price\", async ({ productPage, page }) => {\n  9  |     await expect(productPage.title).toBeVisible();\n  10 |     await expect(page.getByText(\"£24.99\", { exact: true })).toBeVisible();\n  11 |   });",
+      "page": {
+        "url": "chrome-error://chromewebdata/",
+        "title": "",
+        "pageErrors": [],
+        "consoleErrors": []
+      },
+      "annotations": []
+    },
+    {
+      "title": "Product extras › opening an accordion item reveals its content",
+      "file": "src/tests/novera/product-extras.spec.ts:29",
+      "project": "chromium",
+      "platform": "Chrome (local)",
+      "outcome": "flaky",
+      "attempts": 2,
+      "durationMs": 30280,
+      "errors": [
+        "TimeoutError: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:3100/\", waiting until \"load\"\n"
+      ],
+      "context": "# Test source (around the failing line)\n\n\n```ts\n  1  | import { test, expect } from \"../../e2e\";\n  2  | \n  3  | test.describe(\"Product extras\", () => {\n  4  |   test.beforeEach(async ({ productPage, profile }) => {\n> 5  |     await productPage.gotoProduct(profile.data.products[0].path);\n     |                       ^ TimeoutError: page.goto: Timeout 30000ms exceeded.\n  6  |   });\n  7  | \n  8  |   test(\"the size chart switches between inches and centimetres\", async ({ page }) => {\n  9  |     const heading = page.getByRole(\"heading\", { name: /^Size chart/ });\n  10 |     const inch = page.getByRole(\"button\", { name: \"INCH\" });\n  11 |     const cm = page.getByRole(\"button\", { name: \"CM\" });",
+      "page": {
+        "url": "http://localhost:3100/",
+        "title": "Novera | Twill Overshirt",
+        "lastNavigation": {
+          "url": "http://localhost:3100/",
+          "status": 200
+        },
+        "pageErrors": [],
+        "consoleErrors": [],
+        "snapshot": "- banner:\n  - navigation \"Main\":\n    - list:\n      - listitem:\n        - link \"Shop\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Category\":\n          - /url: \"#\"\n      - listitem:\n        - link \"About\":\n          - /url: \"#\"\n      - listitem:\n        - link \"Support\":\n          - /url: \"#\"\n  - link \"Novera home\":\n    - /url: /\n    - text: novéra\n  - button \"Search\"\n  - button \"Basket, 0 items\"\n  - button \"Account\"\n  - button \"Menu\"\n- main:\n  - img \"Open overshirt worn with the collar up\"\n  - button \"Show image 1 of 4\"\n  - button \"Show image 2 of 4\"\n  - button \"Show image 3 of 4\"\n  - button \"Show image 4 of 4\"\n  - text: Rated 4.9/5 (2.5K reviews)\n  - heading \"Twill Overshirt\" [level=1]\n  - paragraph: £24.99\n  - paragraph:\n    - text: A relaxed overshirt in soft cotton twill, finished with chest flap pockets. Light enough to wear as a shirt and roomy enough to throw over a tee for easy layering.\n    - link \"Learn More\":\n      - /url: \"#product-details\"\n  - list:\n    - listitem:\n      - button \"Add to Favourite\"\n    - listitem:\n      - link \"Size Guide\":\n        - /url: \"#size-chart\"\n    - listitem:\n      - paragraph: 12 In Stock\n  - group \"Select colour\":\n    - text: Select colour\n    - radio \"Sage\" [checked]\n    - text: Sage\n    - radio \"Charcoal\"\n    - text: Charcoal\n    - radio \"Mustard\"\n    - text: Mustard\n    - radio \"Lime\"\n    - text: Lime\n    - radio \"Pink\"\n    - text: Pink\n  - separator\n  - group \"Select size\":\n    - text: Select size\n    - radio \"S\" [checked]\n    - text: S\n    - radio \"M\"\n    - text: M\n    - radio \"L\"\n    - text: L\n    - radio \"XL\"\n    - text: XL\n  - button \"Decrease quantity\" [disabled]\n  - text: Quantity\n  - textbox \"Quantity\": \"01\"\n  - button \"Increase quantity\"\n  - button \"Add to Cart\"\n  - paragraph\n  - term: \"Estimated Delivery:\"\n  - definition: Within 4 Days\n  - term: \"Delivery Date:\"\n  - definition: Calculating delivery date\n  - region \"You May Also Like\":\n    - heading \"You May Also Like\" [level=2]\n    - list:\n      - listitem:\n        - link \"Tan leather crossbody bag with a large buckle Trending £64.99 Sable crossbody bag Hand Bag\":\n          - /url: \"#\"\n          - img \"Tan leather crossbody bag with a large buckle\"\n          - text: Trending £64.99 Sable crossbody bag Hand Bag\n      - listitem:\n        - link \"Model wearing a dark brown wool coat at night £48.99 Crestline wool coat Ready to Wear\":\n          - /url: \"#\"\n          - img \"Model wearing a dark brown wool coat at night\"\n          - text: £48.99 Crestline wool coat Ready to Wear\n  - region \"Product details\":\n    - group:\n      - heading \"Free Shipping Worldwide\" [level=3]\n    - group:\n      - heading \"Easy Returns & Exchanges\" [level=3]\n      - paragraph: If your purchase isn't quite right, you can request a return or exchange within our return period, subject to our policy terms.\n    - group:\n      - heading \"Premium Quality Materials\" [level=3]\n  - region \"Size chart - In inches (Expected Deviation < 3%)\":\n    - heading \"Size chart - In inches (Expected Deviation < 3%)\" [level=2]\n    - group \"Measurement unit\":\n      - button \"INCH\" [pressed]\n      - button \"CM\"\n    - table \"Garment measurements by size, in inches\":\n      - caption: Garment measurements by size, in inches\n      - rowgroup:\n        - row \"Size Chest (round) Length Sleeve\":\n          - columnheader \"Size\"\n          - columnheader \"Chest (round)\"\n          - columnheader \"Length\"\n          - columnheader \"Sleeve\"\n      - rowgroup:\n        - row \"M 39 27.5 8.5\":\n          - rowheader \"M\"\n          - cell \"39\"\n          - cell \"27.5\"\n          - cell \"8.5\"\n        - row \"L 40.5 28 8.75\":\n          - rowheader \"L\"\n          - cell \"40.5\"\n          - cell \"28\"\n          - cell \"8.75\"\n        - row \"XL 43 29 9\":\n          - rowheader \"XL\"\n          - cell \"43\"\n          - cell \"29\"\n          - cell \"9\""
+      },
+      "annotations": []
+    }
+  ]
+}

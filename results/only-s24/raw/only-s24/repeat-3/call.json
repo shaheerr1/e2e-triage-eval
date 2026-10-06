@@ -1,0 +1,22 @@
+{
+  "repeat": 3,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 4246,
+  "outputTokens": 696,
+  "verdict": "One real failure out of 11 executed tests on local Chrome: a hardcoded stock count no longer matches the page, most likely data drift rather than a site defect.",
+  "failures": [
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "low",
+      "summary": "The test expects '12 In Stock' for Sage/S, but the page shows 11. The selection and stock display otherwise render correctly, so the hardcoded count looks stale or was consumed by another test.",
+      "evidence": "getByText('12 In Stock') → element(s) not found, while the snapshot shows paragraph: 11 In Stock with radio \"Sage\" [checked] and radio \"S\" [checked]; failed on both attempts with no page or console errors.",
+      "next_step": "Check the Sage/S stock in the novera fixture or backend. If it is 11, or an add-to-cart test decrements it, read the expected count from profile.data instead of hardcoding '12 In Stock' (and '5 In Stock'). If the source data really says 12, treat it as a stock-calculation bug."
+    }
+  ],
+  "seconds": 9.1
+}

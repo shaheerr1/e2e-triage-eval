@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (11099 input / 1443 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**4 failures on local Chrome: two test expectations that don't match the page (price typo, out-of-stock count), and two that trace to a struggling local server (goto timeout, 503s on variant data); no clear product defect.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (medium) | Product info › shows the product name and price | Chrome (local) | The test expects £24.90 but the product page shows £24.99. That looks like a typo in the expected price, since every other price on the site ends in .99. |
+| Test bug (high) | Product info › sizes that are out of stock for the colour are disabled | Chrome (local) | Mustard has only S and XL out of stock. The test's own later assertions require M and L to be enabled, so expecting 3 sold-out sizes out of 4 is self-contradictory. |
+| Environment (medium) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The local server at localhost:3100 did not finish loading within 30s on either attempt, so the test body never ran. |
+| Environment (medium) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | After Mustard was selected, the size stayed on S and the stock stayed at 12. Meanwhile, backend requests were returning 503, so the variant and stock data never loaded. |
+
+<details><summary>Test bug: Product info › shows the product name and price</summary>
+
+**Evidence:** Locator getByText('£24.90', { exact: true }) not found; snapshot: heading "Twill Overshirt" followed by paragraph: £24.99
+
+**Next step:** Confirm the Twill Overshirt price in the CMS. If it is £24.99, change line 10 of product-info.spec.ts to £24.99 or read the price from profile.data.
+
+</details>
+<details><summary>Test bug: Product info › sizes that are out of stock for the colour are disabled</summary>
+
+**Evidence:** Expected: 3 Received: 2; snapshot: radio "S (out of stock)" [disabled], radio "M" [checked], radio "L", radio "XL (out of stock)" [disabled]
+
+**Next step:** Change toHaveCount(3) to toHaveCount(2) on line 30 of product-info.spec.ts, or derive the count from the profile's stock data.
+
+</details>
+<details><summary>Environment: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded. navigating to "http://localhost:3100/"; page still about:blank
+
+**Next step:** Check the local dev/preview server logs for stalls or 503s around this run. Rerun once the server responds reliably to GET /.
+
+</details>
+<details><summary>Environment: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** consoleErrors: 10× "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"; snapshot: radio "Mustard" [checked], radio "S" [checked], paragraph: 12 In Stock, definition: Calculating delivery date
+
+**Next step:** Find which endpoint returned 503 (check the network log or trace) and fix the local backend. If the test still fails with healthy responses, treat it as a product bug in the colour-change size fallback.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

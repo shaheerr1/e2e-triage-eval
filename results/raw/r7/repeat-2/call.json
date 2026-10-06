@@ -1,0 +1,55 @@
+{
+  "repeat": 2,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 11099,
+  "outputTokens": 1463,
+  "verdict": "4 failures on local Chrome: two test expectations are wrong, and two failures trace to a struggling localhost:3100 server (a goto timeout and 503s); no clear product defect.",
+  "failures": [
+    {
+      "test": "Product info › shows the product name and price",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "medium",
+      "summary": "The test expects £24.90 but the page shows £24.99, which matches the .99 pricing used elsewhere on the site, so the hardcoded price is likely a typo or stale.",
+      "evidence": "Locator getByText('£24.90', { exact: true }) not found; snapshot: heading \"Twill Overshirt\" followed by paragraph: £24.99",
+      "next_step": "Confirm the Twill Overshirt price in the CMS test data, then change line 10 of product-info.spec.ts to £24.99 or read the price from profile.data.products[0]."
+    },
+    {
+      "test": "Product info › sizes that are out of stock for the colour are disabled",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The test expects 3 out-of-stock sizes for Mustard, but there are only 4 sizes and it also asserts M and L are enabled, so at most 2 can be sold out; the page correctly shows 2.",
+      "evidence": "Expected: 3, Received: 2; snapshot: radio \"S (out of stock)\" [disabled], radio \"M\" [checked], radio \"L\", radio \"XL (out of stock)\" [disabled]",
+      "next_step": "Change toHaveCount(3) to toHaveCount(2) on line 30 of product-info.spec.ts, or assert S and XL by name."
+    },
+    {
+      "test": "Product extras › the size chart switches between inches and centimetres",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "medium",
+      "summary": "The local server at localhost:3100 did not finish loading within 30s on both attempts, so the test body never ran.",
+      "evidence": "TimeoutError: page.goto: Timeout 30000ms exceeded ... navigating to \"http://localhost:3100/\", waiting until \"load\"; page title \"Loading http://localhost:3100/\"",
+      "next_step": "Check the localhost:3100 dev server logs for stalls or crashes during the run, and make sure it is warm and healthy before tests start."
+    },
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "medium",
+      "summary": "Mustard was checked, but the size and stock never updated while the page logged repeated 503s, so the backend data the page depends on was unavailable.",
+      "evidence": "10× console error \"Failed to load resource: ... status of 503 (Service Unavailable)\"; snapshot: radio \"Mustard\" [checked], radio \"S\" [checked], paragraph: 12 In Stock, definition: Calculating delivery date",
+      "next_step": "Find which endpoint returned 503 (network log or trace) and fix the local backend; then rerun. The sibling Mustard test shows variant switching works when data loads."
+    }
+  ],
+  "seconds": 14
+}

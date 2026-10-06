@@ -1,0 +1,55 @@
+{
+  "repeat": 2,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 13686,
+  "outputTokens": 1572,
+  "verdict": "Two real failures on local Chrome (one test bug, one likely product bug) plus two page.goto timeouts in the same file that passed on retry; nothing points at the environment as a whole.",
+  "failures": [
+    {
+      "test": "Delivery estimate › the delivery date range is calculated from the visitor's date after load",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The test fakes the clock to November 5, not October 5, because JS months are 0-indexed; the page correctly shows the November range.",
+      "evidence": "page.clock.setFixedTime(new Date(2026, 10, 5, 10)) with comment 'Monday 5 October'; snapshot 'definition: Nov 10-12' (Thu 5 Nov + 3–5 working days = Tue 10 to Thu 12 Nov).",
+      "next_step": "In delivery.spec.ts line 10, change to new Date(2026, 9, 5, 10) so the clock is Mon 5 Oct and 'Oct 08-12' is expected."
+    },
+    {
+      "test": "Product info › sizes that are out of stock for the colour are disabled",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "product_bug",
+      "confidence": "medium",
+      "summary": "After selecting Mustard, sizes S and XL are labelled out of stock but their radios stay enabled and selectable.",
+      "evidence": "Received: enabled (24× resolved to <input checked value=\"S\" id=\"size-s\" ...>); snapshot shows 'radio \"S (out of stock)\"' and 'radio \"XL (out of stock)\"' with no [disabled].",
+      "next_step": "Check the variant picker's colour-change handler: it should set the disabled property on size inputs with zero stock, not only update the label. Confirm with product owners that disabling is the intended behaviour."
+    },
+    {
+      "test": "Product info › quantity cannot go above the stock of the selected variant",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "flaky",
+      "confidence": "medium",
+      "summary": "The beforeEach page.goto timed out waiting for the load event on the first attempt and passed on retry.",
+      "evidence": "TimeoutError: page.goto: Timeout 30000ms exceeded ... waiting until \"load\"; outcome flaky, attempts 2.",
+      "next_step": "Look for a slow or hanging subresource that delays 'load' on localhost:3100. If none is found, have gotoProduct wait for 'domcontentloaded' and then assert on the heading."
+    },
+    {
+      "test": "Product info › Add to Cart updates the header basket badge",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "flaky",
+      "confidence": "medium",
+      "summary": "Same beforeEach goto load timeout, which passed on retry; the page had rendered but the load event never fired within 30s.",
+      "evidence": "TimeoutError: page.goto: Timeout 30000ms exceeded; the snapshot is fully rendered with 'definition: Calculating delivery date', and lastNavigation status is 200.",
+      "next_step": "Treat this together with the other goto timeout. Capture a trace or HAR on retry to find which request blocks 'load', which may be the delivery-date script."
+    }
+  ],
+  "seconds": 16
+}

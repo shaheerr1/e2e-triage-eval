@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (13172 input / 2157 output tokens).
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+**Local Chrome run: 3 hard failures on the product page (one likely accordion defect, one stale selector, one cart update to confirm) plus one flaky page load; no environment or infra problems (all navigations 200, no console errors).**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (medium) | Product extras › opening an accordion item reveals its content | Chrome (local) | Clicking the "Free Shipping Worldwide" accordion heading does not expand it; its body stays hidden on both attempts. |
+| Product bug (low) | Product info › Add to Cart updates the header basket badge | Chrome (local) | After Charcoal and quantity 2 were selected, the basket never updated and the header badge never appeared. |
+| Test bug (high) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | The CSS selector .quantity-stepper__field no longer matches, but the quantity input is present on the page. |
+| Flaky (high) | Delivery estimate › the delivery date range is calculated from the visitor's date after load | Chrome (local) | page.goto timed out waiting for the load event once, then the test passed on retry. |
+
+<details><summary>Product bug: Product extras › opening an accordion item reveals its content</summary>
+
+**Evidence:** locator resolved to <p class="product-details__body">Every order ships free…</p> - unexpected value "hidden"; snapshot shows group > heading "Free Shipping Worldwide" with no paragraph, while "Easy Returns & Exchanges" is expanded.
+
+**Next step:** Manually click the Free Shipping heading on the product page and check the accordion toggles. If it does not, fix the toggle handler. If the trigger is a different element than the h3, point the test at it. The trigger is exposed with no button role, so check that too.
+
+</details>
+<details><summary>Product bug: Product info › Add to Cart updates the header basket badge</summary>
+
+**Evidence:** waiting for locator('.site-header__badge') to be visible; snapshot shows radio "Charcoal" [checked] and textbox "Quantity": "02", but the header still reads button "Basket, 0 items" and the CTA still reads button "Add to Cart" (not "Added").
+
+**Next step:** Check that productPage.addToCart actually clicks Add to Cart before waiting on .site-header__badge. If it does, reproduce Add to Cart manually. If it does not, or the badge class was renamed, reclassify as test_bug and wait on the "Basket, 2 items" button instead.
+
+</details>
+<details><summary>Test bug: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** waiting for locator('.quantity-stepper__field'), timeout 15000ms; snapshot has textbox "Quantity": "01".
+
+**Next step:** Change the locator to page.getByRole("textbox", { name: "Quantity" }). Also check the expected value, since the field renders zero-padded ("01"), so 12 may show as "12" but low values differ.
+
+</details>
+<details><summary>Flaky: Delivery estimate › the delivery date range is calculated from the visitor's date after load</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded, waiting until "load"; outcome flaky; snapshot shows definition "Oct 08-12" and status 200.
+
+**Next step:** Find which resource delays the load event on the local server, or switch gotoProduct to waitUntil "domcontentloaded". Watch whether page.clock.setFixedTime correlates with slow loads.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

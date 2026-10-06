@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (7917 input / 1462 output tokens).
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+**The local Novera server at localhost:3100 was unstable (a 503, a 404 on /, a goto timeout), which explains three of the four problems; the delivery-date widget stuck on 'Calculating' looks like the one real product bug.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (medium) | Delivery estimate › the delivery date range is calculated from the visitor's date after load | Chrome (local) | The page loaded with status 200 and no errors, but the delivery date never resolved from its placeholder, so 'Oct 08-12' never appeared. |
+| Environment (high) | Product info › quantity cannot go above the stock of the selected variant | Chrome (local) | The local server returned 503, so the product page and #quantity input never rendered. |
+| Environment (medium) | Smoke: site health › route responds: home (/) | Chrome (local) | The home route returned 404, although other tests in the same run got 200 from the same URL, which points to an unstable or not-ready local server rather than a missing route. |
+| Flaky (high) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | Page navigation in beforeEach timed out once and passed on retry, consistent with the unstable local server in this run. |
+
+<details><summary>Product bug: Delivery estimate › the delivery date range is calculated from the visitor's date after load</summary>
+
+**Evidence:** Snapshot: term "Delivery Date:" / definition: Calculating delivery date. The same placeholder appears in the flaky test's snapshot, which sets no fake clock.
+
+**Next step:** Check the client-side delivery-date script on the product page to see why it never replaces 'Calculating delivery date' after load. Then confirm whether 'Within 4 Days' should match the test's 3–5 working-day expectation.
+
+</details>
+<details><summary>Environment: Product info › quantity cannot go above the stock of the selected variant</summary>
+
+**Evidence:** lastNavigation status 503; snapshot: heading "Service Unavailable"
+
+**Next step:** Find out why the localhost:3100 server returned 503 (startup or overload) and make the run wait for a healthy server before the tests start, then rerun.
+
+</details>
+<details><summary>Environment: Smoke: site health › route responds: home (/)</summary>
+
+**Evidence:** Error: / returned 404 ... Expected: < 400 Received: 404 (other tests' navigation to http://localhost:3100/ got 200)
+
+**Next step:** Check the local server logs for 404 responses on / during startup, add a readiness check before the smoke spec runs, and rerun.
+
+</details>
+<details><summary>Flaky: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded ... waiting until "load"; outcome flaky, attempts 2
+
+**Next step:** No test change needed; fixing the local server's readiness and stability (see the 503 failure) should clear this.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

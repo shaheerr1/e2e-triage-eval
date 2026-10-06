@@ -1,0 +1,55 @@
+{
+  "repeat": 1,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 9844,
+  "outputTokens": 1513,
+  "verdict": "4 failures on local Chrome, none flaky (all failed both attempts): one clear test bug in the size-chart row selector, a 502 from /api/product, and two product-info mismatches (price and stock) that may come from that 502 or from stale test data.",
+  "failures": [
+    {
+      "test": "Product extras › the size chart switches between inches and centimetres",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The locator `rowM` targets the L row (/^L\\b/) but asserts the M row's length value (27.5).",
+      "evidence": "Locator getByRole('row', { name: /^L\\b/ }) received \"L40.5288.75\"; the snapshot has row \"M 39 27.5 8.5\", and the later 69.9 cm check equals 27.5 in, which is also M.",
+      "next_step": "Change the regex on line 12 of product-extras.spec.ts to /^M\\b/, or keep L and expect 28 / 71.1."
+    },
+    {
+      "test": "Smoke: site health › route responds: /api/product (/api/product)",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "medium",
+      "summary": "The local target's /api/product endpoint returns 502 on both attempts.",
+      "evidence": "Error: /api/product returned 502 (Expected: < 400, Received: 502)",
+      "next_step": "Check the localhost:3100 server logs and upstream product data source for why /api/product 502s, then rerun."
+    },
+    {
+      "test": "Product info › shows the product name and price",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "low",
+      "summary": "The page shows £25 instead of the expected £24.99, likely stale or fallback product data while /api/product 502s; a price-rounding bug is also possible.",
+      "evidence": "getByText('£24.99', { exact: true }) not found; the snapshot shows paragraph: £25 under heading \"Twill Overshirt\".",
+      "next_step": "Fix the /api/product 502 and rerun; if £25 persists, compare the CMS price for products[0] and check whether the price formatter rounds to whole pounds."
+    },
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "environment",
+      "confidence": "low",
+      "summary": "Stock for Sage/S shows 11 instead of the expected 12, consistent with product data drifting from the test fixture or fallback data while /api/product fails.",
+      "evidence": "getByText('12 In Stock') not found; the snapshot shows paragraph: 11 In Stock with radio \"Sage\" [checked] and radio \"S\" [checked].",
+      "next_step": "After /api/product is healthy, verify the Sage/S stock in the source data and either reset the fixture data or update the expectation in product-info.spec.ts."
+    }
+  ],
+  "seconds": 16.7
+}

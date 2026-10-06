@@ -1,0 +1,43 @@
+Triaged with claude-opus-5-5 (9945 input / 1334 output tokens).
+## E2E novera on local browsers: 3 failed, 1 flaky, 7 passed, 19 skipped
+
+**Not a site regression: two stale selectors in the product specs, one DNS misconfiguration on the smoke base URL, and one slow-load flake. The product page itself rendered correctly (200, no script or console errors).**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (high) | Product extras › opening an accordion item reveals its content | Chrome (local) | The test clicks a heading named 'Free Worldwide Shipping', but the page renders it with the words in a different order. |
+| Test bug (high) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | variantButton('colour-yellow') targets an id that doesn't exist; the colour is Mustard, and the next test already uses 'colour-mustard'. |
+| Environment (high) | Smoke: site health › home page renders with site chrome | Chrome (local) | The smoke spec navigates to a hostname that doesn't resolve, while every other spec reached the site at localhost:3100. |
+| Flaky (medium) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The first attempt timed out loading the product page in beforeEach, then passed on retry; nothing points to a page defect. |
+
+<details><summary>Test bug: Product extras › opening an accordion item reveals its content</summary>
+
+**Evidence:** Waiting for getByRole('heading', { name: 'Free Worldwide Shipping' }); the snapshot has heading "Free Shipping Worldwide" [level=3] under region "Product details".
+
+**Next step:** Change line 33 of product-extras.spec.ts to name 'Free Shipping Worldwide'. Check with content that the reordered heading copy was intended, and confirm the /^Every order ships free/ body text still matches.
+
+</details>
+<details><summary>Test bug: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** Waiting for locator('#colour-yellow'); the snapshot's Select colour group has radios Sage, Charcoal, Mustard, Lime, Pink and no Yellow.
+
+**Next step:** Change lines 21–22 of product-info.spec.ts to variantButton('colour-mustard'), then rerun to confirm the '5 In Stock' expectation.
+
+</details>
+<details><summary>Environment: Smoke: site health › home page renders with site chrome</summary>
+
+**Evidence:** page.goto: net::ERR_NAME_NOT_RESOLVED at http://novera-web.internal:3100/
+
+**Next step:** Find where the smoke spec gets 'novera-web.internal' (base URL, profile or env var) and point it at http://localhost:3100, or make that hostname resolve on the runner.
+
+</details>
+<details><summary>Flaky: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** TimeoutError: page.goto: Timeout 30000ms exceeded (navigating to http://localhost:3100/, waiting until "load"); the retry got status 200 with no page or console errors.
+
+**Next step:** Check whether the local server was cold or still starting when the run began (add a warm-up request or wait-on before tests); if it recurs, profile what delays the 'load' event.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

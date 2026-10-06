@@ -1,0 +1,9 @@
+Would send 6426 characters for 1 failures.
+## E2E novera on local browsers: 1 failed, 0 flaky, 10 passed, 19 skipped
+
+> Not triaged: dry run.
+
+| Test | Platforms | Error |
+|---|---|---|
+| Product info › selecting a colour updates the stock for the selected size | Chrome (local) | Error: expect(locator).toBeVisible() failed |
+
