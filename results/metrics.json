@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T08:26:41.832Z",
+  "generatedAt": "2026-10-09T08:39:10.762Z",
   "models": [
     "claude-opus-5-5"
   ],
@@ -324,8 +324,8 @@
       }
     },
     "nextSteps": {
-      "filled": 0,
-      "blank": 32
+      "filled": 32,
+      "blank": 0
     }
   },
   "baseline": {

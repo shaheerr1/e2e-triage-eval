@@ -1,6 +1,6 @@
 # Triage accuracy report
 
-Generated 2026-10-06T08:26:41.832Z. Model(s): claude-opus-5-5. 8/8 runs triaged, 32 failures triaged, 24/24 triage calls succeeded, 255,936 input / 36,962 output tokens. Baseline: rules in `src/baseline.ts` over the same results files, 32 failures.
+Generated 2026-10-09T08:39:10.762Z. Model(s): claude-opus-5-5. 8/8 runs triaged, 32 failures triaged, 24/24 triage calls succeeded, 255,936 input / 36,962 output tokens. Baseline: rules in `src/baseline.ts` over the same results files, 32 failures.
 
 ## Overall accuracy
 
@@ -79,7 +79,7 @@ Same category in all 3 repeats: **31/32** (97%, 95% CI 84%–99%).
 
 ## Next step leads to the fix (manual)
 
-Filled in by hand in `next-steps.csv`, one row per failure (`next_step_leads_to_fix`). Not assessed yet (32 rows blank).
+Filled in by hand in `next-steps.csv`, one row per failure (`next_step_leads_to_fix`). 32 assessed, 0 blank.
 
 ## Every failure
 
