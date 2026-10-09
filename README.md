@@ -11,6 +11,101 @@ Claude to put each failure in one of `product_bug`, `test_bug`, `flaky`, `enviro
 failures with a known cause into a real app and suite, runs the CLI on the results, and scores the
 answers.
 
+## Findings
+
+Sources: `results/report.md`, `results/next-steps.csv` and
+`results/ablation-no-s16/comparison.md`.
+
+### 1. Headline
+
+The triage classified 30 of 32 seeded failures correctly. A rules baseline over the same results
+files got 24 of 32.
+
+| Classifier | Correct | Accuracy | 95% CI (Wilson) | Macro F1 |
+|---|---|---|---|---|
+| Triage, majority of 3 repeats | 30/32 | 94% | 80 to 98% | 0.94 |
+| Rules baseline | 24/32 | 75% | 58 to 87% | 0.76 |
+
+The single repeats scored 30, 30 and 29 out of 32. The intervals overlap at n=32, so the gap is
+consistent but not conclusive.
+
+### 2. Where the model adds value
+
+The gain is in telling product bugs from test bugs. The baseline confused these two categories 7
+times out of 16 failures. The triage never put a product bug in `test_bug` or a test bug in
+`product_bug`.
+
+| Category | Triage F1 | Baseline F1 |
+|---|---|---|
+| product_bug | 0.83 | 0.50 |
+| test_bug | 1.00 | 0.59 |
+| flaky | 1.00 | 1.00 |
+| environment | 0.89 | 0.93 |
+
+Triage scores are pooled over the 3 repeats. Flaky is trivial for both, because Playwright's own
+`flaky` status is in the payload. On environment the baseline scores slightly higher, because the
+triage labelled 6 product bug answers as environment (see 5).
+
+### 3. Calibration
+
+All 96 answers (32 failures × 3 repeats).
+
+| Triage confidence | Correct | Accuracy |
+|---|---|---|
+| high | 41/41 | 100% |
+| medium | 45/47 | 96% |
+| low | 3/8 | 38% |
+
+Practical reading: trust high, double check low. Caveat: 7 failures are labelled
+evidence-insufficient (the results file alone can't separate the true category from its nearest
+alternative). On those, 5 of 21 answers were still high confidence, 11 medium and 5 low.
+
+### 4. Next steps
+
+I judged 31 of 32 next steps (majority answer per failure) to lead to the real cause. The miss was
+s24 in the batched run (stock shows 11, test expects 12; the product is wrong). Its next step
+suggested updating the test expectation, which would hide a real product bug.
+
+### 5. Batch effect
+
+Both failures the triage got wrong in every repeat were product bugs (s11 price, s24 stock) in run
+r1. That run also contained an unrelated failure: `/api/product` returning 502 (s16). In the
+batched run the triage labelled both as `environment` and linked them to the 502.
+
+Ablation: the same r1 results file with only the s16 entry removed, 3 repeats.
+
+| Scenario (truth) | Batched r1 | Without s16 | s24 alone (pilot) |
+|---|---|---|---|
+| s11 (product_bug) | environment ×3 | test_bug, product_bug, product_bug | not run |
+| s18 (test_bug) | test_bug ×3 | test_bug ×3 | not run |
+| s24 (product_bug) | environment ×3 | test_bug ×3 | test_bug ×3 |
+
+- Removing that one failure stopped the `environment` label in all 3 repeats.
+- s11 became correct in 2 of 3. s24 moved to `test_bug`, the same as when triaged alone. It is
+  still wrong, which the rubric expects for an evidence-insufficient case. s18 was unchanged.
+- In the batched run, s24's next steps also lost the branch that leads to the fix ("if the data
+  says 12, it is a product bug"). The solo and ablation next steps kept it.
+- Payload caveat: the ablation changed nothing but the failure list, so the totals still said 4
+  failed while 3 were listed. The model noticed this in 2 of 3 verdicts.
+
+The same cross failure reasoning helped on s20 (wrong port, `/ returned 404`). The triage got it
+right in all 3 repeats, where the baseline said `product_bug`. Batching cuts both ways.
+
+### 6. Stability and cost
+
+- 31 of 32 failures got the same category in all 3 repeats. The exception was s23 (product_bug,
+  product_bug, unknown, all low confidence).
+- About $0.07 per triage call (24 calls, 255,936 input and 36,962 output tokens, at $4 and $20
+  per million). Total spend about $2.05, including the pilot and the ablation.
+
+### 7. Limitations
+
+- 32 seeded failures, 8 per category. Intervals are wide.
+- Synthetic failures with one cause each, in one small app.
+- One model version (`claude-opus-5-5`) and one framework version (0.3.1).
+- BrowserStack excluded. No credentials, so that category was never tested.
+- Flaky and slow-navigation environment failures are separable only by Playwright's status.
+
 ## Method
 
 ### App and suite
@@ -109,9 +204,9 @@ from `.env.local` only. Token usage and the model actually used come from the CL
 - Stability: share of failures with the same category in all 3 repeats.
 - Accuracy separately for evidence-sufficient and evidence-insufficient failures, and, for the
   insufficient ones, how often the triage said `low` confidence.
-- Next step leads to the fix: manual, in `results/next-steps.csv` (`leads_to_fix` = yes / partly /
-  no). The `actual_fix` column says where the real fix is. Rerunning `--stage score` keeps what
-  you filled in.
+- Next step leads to the fix: manual, in `results/next-steps.csv`, one row per failure. The
+  `next_step_leads_to_fix` column is filled in by hand with `yes` or `no`. Rerunning
+  `--stage score` keeps what you filled in.
 
 ### Rules baseline (`src/baseline.ts`, tested in `test/baseline.test.ts`)
 
@@ -131,14 +226,13 @@ It needs no API calls, so its numbers exist as soon as the runs do.
 
 ## Results
 
-_Not run yet: waiting on the go-ahead for the full set (it costs API credits). After
-`npm run eval`, the tables are in [`results/report.md`](results/report.md) and the raw data in
-`results/*.json` and `results/raw/`._
+The main numbers are in [Findings](#findings) at the top. All tables are in
+[`results/report.md`](results/report.md), with raw data in `results/*.json` and `results/raw/`.
 
 ## Limitations
 
-- **Small n.** 32 failures, 8 per category. Intervals are wide: 26/32 correct (81%) has a Wilson
-  interval of 65–91%. Per-category numbers rest on 8 failures each.
+- **Small n.** 32 failures, 8 per category. Intervals are wide: 30/32 correct (94%) has a Wilson
+  interval of 80 to 98%. Per-category numbers rest on 8 failures each.
 - **Synthetic, seeded failures.** One cause per failure, one failing test per cause, a single small
   app. Real runs have cascades, several causes at once, and noisier pages.
 - **Flaky failures are all one shape**: a slow first navigation that times out, then a clean
@@ -199,6 +293,10 @@ npm run eval -- --stage score       # rescore what's on disk, e.g. after filling
 ```
 
 ```bash
+npx tsx src/ablation.ts --run r1 --drop s16   # retriage r1 without the s16 failure, 3 repeats
+```
+
+```bash
 npm test                            # metric, baseline and leakage tests
 ```
 
@@ -218,8 +316,10 @@ src/triage.ts             calls blaze-e2e-triage (dry run and real)
 src/score.ts              metric functions
 src/baseline.ts           rules baseline
 src/report.ts             judgments, results/*.json, report.md, next-steps.csv
+src/ablation.ts           retriage one run with failures removed from the payload
 test/                     tests for score.ts, baseline.ts and leakage.ts
 results/                  report.md, metrics.json, judgments.json, baseline.json, observed.json,
                           calls.json, runs.json,
                           next-steps.csv, raw/<run>/ (results file, dry run, each call's output)
+results/ablation-no-s16/  r1 without s16: trimmed payload, each call's output, comparison.md
 ```
