@@ -1,0 +1,32 @@
+[
+  {
+    "repeat": 1,
+    "ok": true,
+    "model": "claude-opus-5-5",
+    "inputTokens": 9666,
+    "outputTokens": 1289,
+    "verdict": "3 of 4 reported failures are detailed, all local Chrome against localhost:3100 with 200 responses and no script errors; they look like test expectations out of step with the page, not outages.",
+    "seconds": 15.5,
+    "entries": 3
+  },
+  {
+    "repeat": 2,
+    "ok": true,
+    "model": "claude-opus-5-5",
+    "inputTokens": 9666,
+    "outputTokens": 1293,
+    "verdict": "3 of 4 reported local Chrome failures have deterministic causes, none infra-related: 1 clear test bug and 2 data mismatches on the product page. Totals say 4 failed, but only 3 failures are in the report.",
+    "seconds": 14,
+    "entries": 3
+  },
+  {
+    "repeat": 3,
+    "ok": true,
+    "model": "claude-opus-5-5",
+    "inputTokens": 9666,
+    "outputTokens": 1352,
+    "verdict": "4 local Chromium failures, only 3 detailed; the pages loaded fine (200, no errors). One is clearly a test bug; two are hardcoded price and stock values that no longer match the page.",
+    "seconds": 15,
+    "entries": 3
+  }
+]

@@ -1,0 +1,35 @@
+Triaged with claude-opus-5-5 (9666 input / 1352 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**4 local Chromium failures, only 3 detailed; the pages loaded fine (200, no errors). One is clearly a test bug; two are hardcoded price and stock values that no longer match the page.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (low) | Product info › shows the product name and price | Chrome (local) | The page shows the price as £25 where the test expects £24.99, either from a price formatter rounding off pence or from changed product data. |
+| Test bug (high) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The locator named rowM targets the L row (/^L\b/), but the test expects the M row's length of 27.5. |
+| Test bug (low) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | The test hardcodes 12 in stock for Sage/S, but the page shows 11, so either the test data drifted or an earlier test (e.g. add to cart) used up stock. |
+
+<details><summary>Product bug: Product info › shows the product name and price</summary>
+
+**Evidence:** getByText('£24.99', { exact: true }): element(s) not found; snapshot: paragraph: £25
+
+**Next step:** Check the Twill Overshirt price in the product data. If it is 24.99, fix the price formatter. If it is 25, update the test or read the price from profile data.
+
+</details>
+<details><summary>Test bug: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** Received "L40.5288.75"; snapshot has row "M 39 27.5 8.5" and row "L 40.5 28 8.75", so the chart is correct.
+
+**Next step:** In product-extras.spec.ts:12, change the regex to /^M\b/, or keep L and expect 28 and the matching cm value.
+
+</details>
+<details><summary>Test bug: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** getByText('12 In Stock'): element(s) not found; snapshot: paragraph: 11 In Stock with radio "Sage" [checked], radio "S" [checked]
+
+**Next step:** Compare the seed stock for Sage/S with 11. Then either update the expectation or read it from profile data, and make sure no other test changes stock without resetting it.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

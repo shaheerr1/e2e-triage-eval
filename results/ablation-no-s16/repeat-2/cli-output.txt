@@ -1,0 +1,35 @@
+Triaged with claude-opus-5-5 (9666 input / 1293 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**3 of 4 reported local Chrome failures have deterministic causes, none infra-related: 1 clear test bug and 2 data mismatches on the product page. Totals say 4 failed, but only 3 failures are in the report.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Product bug (low) | Product info › shows the product name and price | Chrome (local) | The page shows the price as £25 where the test expects £24.99, so either the price formatter drops pence or the product price changed. |
+| Test bug (high) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The locator `rowM` uses /^L\b/, so it matches the L row, but the expected 27.5 is the M row's length. |
+| Test bug (low) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | The test hardcodes '12 In Stock' for Sage/S, but the page shows 11, which looks like stale hardcoded stock data. |
+
+<details><summary>Product bug: Product info › shows the product name and price</summary>
+
+**Evidence:** getByText('£24.99', { exact: true }) not found; snapshot shows `paragraph: £25` under heading "Twill Overshirt".
+
+**Next step:** Check the price for profile.data.products[0] in the CMS/fixture. If it is 24.99, fix the price formatter's rounding; if it is 25, update the test.
+
+</details>
+<details><summary>Test bug: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** Received "L40.5288.75"; snapshot has row "M 39 27.5 8.5" and row "L 40.5 28 8.75". INCH is [pressed] and the heading is correct, so the page is fine.
+
+**Next step:** Change line 12 to getByRole('row', { name: /^M\b/ }), then rerun to check the CM assertion (69.9).
+
+</details>
+<details><summary>Test bug: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** getByText('12 In Stock') not found; snapshot shows `paragraph: 11 In Stock` with radio "Sage" [checked] and "S" [checked].
+
+**Next step:** Confirm the Sage/S stock in the fixture data. Then read expected stock counts from profile.data instead of hardcoding them, or fix the fixture if 12 is correct.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+

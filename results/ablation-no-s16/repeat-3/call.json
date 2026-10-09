@@ -1,0 +1,44 @@
+{
+  "repeat": 3,
+  "ok": true,
+  "model": "claude-opus-5-5",
+  "inputTokens": 9666,
+  "outputTokens": 1352,
+  "verdict": "4 local Chromium failures, only 3 detailed; the pages loaded fine (200, no errors). One is clearly a test bug; two are hardcoded price and stock values that no longer match the page.",
+  "failures": [
+    {
+      "test": "Product extras › the size chart switches between inches and centimetres",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "high",
+      "summary": "The locator named rowM targets the L row (/^L\\b/), but the test expects the M row's length of 27.5.",
+      "evidence": "Received \"L40.5288.75\"; snapshot has row \"M 39 27.5 8.5\" and row \"L 40.5 28 8.75\", so the chart is correct.",
+      "next_step": "In product-extras.spec.ts:12, change the regex to /^M\\b/, or keep L and expect 28 and the matching cm value."
+    },
+    {
+      "test": "Product info › shows the product name and price",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "product_bug",
+      "confidence": "low",
+      "summary": "The page shows the price as £25 where the test expects £24.99, either from a price formatter rounding off pence or from changed product data.",
+      "evidence": "getByText('£24.99', { exact: true }): element(s) not found; snapshot: paragraph: £25",
+      "next_step": "Check the Twill Overshirt price in the product data. If it is 24.99, fix the price formatter. If it is 25, update the test or read the price from profile data."
+    },
+    {
+      "test": "Product info › selecting a colour updates the stock for the selected size",
+      "platforms": [
+        "Chrome (local)"
+      ],
+      "category": "test_bug",
+      "confidence": "low",
+      "summary": "The test hardcodes 12 in stock for Sage/S, but the page shows 11, so either the test data drifted or an earlier test (e.g. add to cart) used up stock.",
+      "evidence": "getByText('12 In Stock'): element(s) not found; snapshot: paragraph: 11 In Stock with radio \"Sage\" [checked], radio \"S\" [checked]",
+      "next_step": "Compare the seed stock for Sage/S with 11. Then either update the expectation or read it from profile data, and make sure no other test changes stock without resetting it."
+    }
+  ],
+  "seconds": 15
+}

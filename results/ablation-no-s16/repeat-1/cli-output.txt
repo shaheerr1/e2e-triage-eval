@@ -1,0 +1,35 @@
+Triaged with claude-opus-5-5 (9666 input / 1289 output tokens).
+## E2E novera on local browsers: 4 failed, 0 flaky, 7 passed, 19 skipped
+
+**3 of 4 reported failures are detailed, all local Chrome against localhost:3100 with 200 responses and no script errors; they look like test expectations out of step with the page, not outages.**
+
+| Category | Test | Platforms | Summary |
+|---|---|---|---|
+| Test bug (high) | Product extras › the size chart switches between inches and centimetres | Chrome (local) | The locator named rowM actually matches the L row (/^L\b/), but the test asserts the M row's length value 27.5. |
+| Test bug (low) | Product info › shows the product name and price | Chrome (local) | The test expects the exact text £24.99, but the product page shows £25. |
+| Test bug (medium) | Product info › selecting a colour updates the stock for the selected size | Chrome (local) | The test hardcodes 12 in stock for Sage/S, but the page shows 11, so the stock data no longer matches the expectation. |
+
+<details><summary>Test bug: Product extras › the size chart switches between inches and centimetres</summary>
+
+**Evidence:** Locator getByRole('row', { name: /^L\b/ }) received "L40.5288.75"; snapshot shows row "M 39 27.5 8.5" and row "L 40.5 28 8.75", so the chart itself is correct.
+
+**Next step:** Change line 12 of product-extras.spec.ts to getByRole('row', { name: /^M\b/ }), or keep the L row and expect 28 inch and the matching cm value.
+
+</details>
+<details><summary>Test bug: Product info › shows the product name and price</summary>
+
+**Evidence:** getByText('£24.99', { exact: true }) element(s) not found; snapshot: heading "Twill Overshirt" followed by paragraph: £25.
+
+**Next step:** Check products[0]'s price in the CMS. If it is 24.99 and is shown as £25, raise a price-rounding bug. If it is 25, update the expectation or read the price from profile data.
+
+</details>
+<details><summary>Test bug: Product info › selecting a colour updates the stock for the selected size</summary>
+
+**Evidence:** getByText('12 In Stock') not found; snapshot: radio "Sage" [checked], radio "S" [checked], paragraph: 11 In Stock.
+
+**Next step:** Find out whether Sage/S stock was changed in the fixture data or reduced by an earlier test. Then pin the seed data or take the expected count from profile data rather than a literal.
+
+</details>
+
+_Triaged by Claude. Check the evidence before acting on it._
+
